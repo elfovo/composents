@@ -5,37 +5,37 @@ export const getMenuConfig = (t: (key: TranslationKey) => string) => {
   return {
     items: [
       {
-        label: t('home'),
+        label: 'Accueil',
         href: '#home',
-        ariaLabel: t('home'),
+        ariaLabel: 'Accueil',
         rotation: -8,
         hoverStyles: { bgColor: colors.menu.hover, textColor: colors.primary.white }
       },
       {
-        label: t('about'),
-        href: '#about',
-        ariaLabel: t('about'),
+        label: 'Backgrounds',
+        href: '#backgrounds',
+        ariaLabel: 'Backgrounds',
         rotation: 8,
         hoverStyles: { bgColor: colors.menu.hover, textColor: colors.primary.white }
       },
       {
-        label: t('projects'),
-        href: '#projects',
-        ariaLabel: t('projects'),
+        label: 'Boutons',
+        href: '#buttons',
+        ariaLabel: 'Boutons',
         rotation: 8,
         hoverStyles: { bgColor: colors.menu.hover, textColor: colors.primary.white }
       },
       {
-        label: t('services'),
-        href: '#services',
-        ariaLabel: t('services'),
+        label: 'Layouts',
+        href: '#layouts',
+        ariaLabel: 'Layouts',
         rotation: -8,
         hoverStyles: { bgColor: colors.menu.hover, textColor: colors.primary.white }
       },
       {
-        label: t('contact'),
-        href: '#contact',
-        ariaLabel: t('contact'),
+        label: 'Animations',
+        href: '#animations',
+        ariaLabel: 'Animations',
         rotation: 8,
         hoverStyles: { bgColor: colors.menu.hover, textColor: colors.primary.white }
       }

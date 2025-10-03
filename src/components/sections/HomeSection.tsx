@@ -1,13 +1,11 @@
 'use client';
 
-import { useLanguage } from '@/contexts/LanguageContext';
 import { colors } from '@/lib/colors';
 import LiquidEther from '@/components/LiquidEther';
 import { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 
 export default function HomeSection() {
-  const { t } = useLanguage();
   const titleRef = useRef<HTMLHeadingElement>(null);
   const subtitleRef = useRef<HTMLHeadingElement>(null);
   const descriptionRef = useRef<HTMLParagraphElement>(null);
@@ -78,21 +76,22 @@ export default function HomeSection() {
             className="text-6xl font-bold mb-6 drop-shadow-lg" 
             style={{ color: colors.text.primary, opacity: 0 }}
           >
-            {t('welcomeTitle')}
+            Composants Showcase
           </h1>
           <h2 
             ref={subtitleRef}
             className="text-2xl mb-6 drop-shadow-md" 
             style={{ color: colors.text.light, opacity: 0 }}
           >
-            {t('welcomeSubtitle')}
+            Bibliothèque de composants réutilisables
           </h2>
           <p 
             ref={descriptionRef}
             className="text-xl max-w-3xl mx-auto drop-shadow-sm" 
             style={{ color: colors.text.muted, opacity: 0 }}
           >
-            {t('welcomeDescription')}
+            Découvrez ma collection de composants modernes et interactifs. 
+            Chaque élément est conçu pour être facilement intégré dans vos projets.
           </p>
         </div>
       </div>

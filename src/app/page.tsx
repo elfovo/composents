@@ -1,17 +1,17 @@
 import HomeSection from '@/components/sections/HomeSection';
-import AboutSection from '@/components/sections/AboutSection';
-import ProjectsSection from '@/components/sections/ProjectsSection';
-import ServicesSection from '@/components/sections/ServicesSection';
-import ContactSection from '@/components/sections/ContactSection';
+import BackgroundsSection from '@/components/sections/BackgroundsSection';
+import ButtonsSection from '@/components/sections/ButtonsSection';
+import LayoutsSection from '@/components/sections/LayoutsSection';
+import AnimationsSection from '@/components/sections/AnimationsSection';
 
 export default function HomePage() {
   return (
     <div className="scroll-smooth">
       <HomeSection />
-      <AboutSection />
-      <ProjectsSection />
-      <ServicesSection />
-      <ContactSection />
+      <BackgroundsSection />
+      <ButtonsSection />
+      <LayoutsSection />
+      <AnimationsSection />
     </div>
   );
 }
