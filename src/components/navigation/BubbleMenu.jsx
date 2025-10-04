@@ -54,7 +54,8 @@ export default function BubbleMenu({
   animationEase = 'back.out(1.5)',
   animationDuration = 0.5,
   staggerDelay = 0.12,
-  onItemClick
+  onItemClick,
+  disableNavigation = false
 }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [showOverlay, setShowOverlay] = useState(false);
@@ -217,8 +218,11 @@ export default function BubbleMenu({
                   aria-label={item.ariaLabel || item.label}
                   className="pill-link"
                   onClick={(e) => {
+                    if (disableNavigation) {
+                      e.preventDefault(); // Empêche la navigation seulement si désactivée
+                    }
                     if (onItemClick) {
-                      onItemClick();
+                      onItemClick(e);
                     }
                     // Fermer le menu après le clic
                     setTimeout(() => {

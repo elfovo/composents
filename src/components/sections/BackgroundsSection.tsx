@@ -1,7 +1,8 @@
 'use client';
 
 import { colors } from '@/lib/colors';
-import LiquidEther from '@/components/LiquidEther';
+import { Aurora, DotGrid, Galaxy, LiquidEther, Orb, Squares, Threads } from '@/components/backgrounds';
+import { ModernBackgroundNav } from '@/components/navigation';
 import { useState } from 'react';
 
 export default function BackgroundsSection() {
@@ -13,96 +14,132 @@ export default function BackgroundsSection() {
       name: 'LiquidEther',
       description: 'Background liquide interactif avec WebGL',
       component: (
-        <LiquidEther
-          mouseForce={15}
-          cursorSize={80}
-          colors={['#5227FF', '#FF9FFC', '#B19EEF']}
-          autoDemo={true}
-          autoSpeed={0.3}
-          autoIntensity={1.8}
-          resolution={0.4}
-          style={{ width: '100%', height: '300px', borderRadius: '12px' }}
-        />
-      )
-    },
-    {
-      id: 'gradient',
-      name: 'Gradient Animé',
-      description: 'Gradient CSS avec animation fluide',
-      component: (
-        <div 
-          className="w-full h-72 rounded-xl relative overflow-hidden"
-          style={{
-            background: 'linear-gradient(45deg, #667eea 0%, #764ba2 100%)',
-            animation: 'gradientShift 3s ease-in-out infinite alternate'
-          }}
-        >
-          <style jsx>{`
-            @keyframes gradientShift {
-              0% { background: linear-gradient(45deg, #667eea 0%, #764ba2 100%); }
-              50% { background: linear-gradient(45deg, #f093fb 0%, #f5576c 100%); }
-              100% { background: linear-gradient(45deg, #4facfe 0%, #00f2fe 100%); }
-            }
-          `}</style>
+        <div className="w-full h-[600px] rounded-2xl overflow-hidden border-2 border-gray-200 shadow-lg">
+          <LiquidEther
+            mouseForce={15}
+            cursorSize={80}
+            colors={['#ffffff', '#f8f9fa', '#e9ecef']}
+            autoDemo={true}
+            autoSpeed={0.3}
+            autoIntensity={1.8}
+            resolution={0.4}
+            style={{ width: '100%', height: '100%' }}
+          />
         </div>
       )
     },
     {
-      id: 'particles',
-      name: 'Particules',
-      description: 'Effet de particules flottantes',
+      id: 'threads',
+      name: 'Threads',
+      description: 'Effet de fils animés avec WebGL',
       component: (
-        <div className="w-full h-72 rounded-xl relative overflow-hidden bg-black">
-          {[...Array(20)].map((_, i) => (
-            <div
-              key={i}
-              className="absolute w-2 h-2 bg-white rounded-full opacity-60"
-              style={{
-                left: `${Math.random() * 100}%`,
-                top: `${Math.random() * 100}%`,
-                animation: `float ${3 + Math.random() * 4}s ease-in-out infinite`,
-                animationDelay: `${Math.random() * 2}s`
-              }}
-            />
-          ))}
-          <style jsx>{`
-            @keyframes float {
-              0%, 100% { transform: translateY(0px) rotate(0deg); }
-              50% { transform: translateY(-20px) rotate(180deg); }
-            }
-          `}</style>
+        <div className="w-full h-[600px] rounded-2xl overflow-hidden border-2 border-gray-200 shadow-lg">
+          <Threads
+            color={[1.0, 1.0, 1.0]}
+            amplitude={1}
+            distance={1.2}
+            enableMouseInteraction={false}
+            style={{ width: '100%', height: '100%' }}
+          />
         </div>
       )
     },
     {
-      id: 'geometric',
-      name: 'Géométrique',
-      description: 'Formes géométriques animées',
+      id: 'orb',
+      name: 'Orb',
+      description: 'Sphère énergétique interactive avec WebGL',
       component: (
-        <div className="w-full h-72 rounded-xl relative overflow-hidden bg-gradient-to-br from-purple-900 to-blue-900">
-          <div className="absolute inset-0">
-            {[...Array(6)].map((_, i) => (
-              <div
-                key={i}
-                className="absolute border-2 border-white opacity-30"
-                style={{
-                  width: `${60 + i * 20}px`,
-                  height: `${60 + i * 20}px`,
-                  left: `${20 + i * 15}%`,
-                  top: `${20 + i * 10}%`,
-                  borderRadius: i % 2 === 0 ? '50%' : '0%',
-                  animation: `rotate ${4 + i}s linear infinite`,
-                  animationDelay: `${i * 0.5}s`
-                }}
-              />
-            ))}
-          </div>
-          <style jsx>{`
-            @keyframes rotate {
-              from { transform: rotate(0deg); }
-              to { transform: rotate(360deg); }
-            }
-          `}</style>
+        <div className="w-full h-[600px] rounded-2xl overflow-hidden border-2 border-gray-200 shadow-lg">
+          <Orb
+            hue={0}
+            hoverIntensity={0.3}
+            rotateOnHover={true}
+            forceHoverState={false}
+            style={{ width: '100%', height: '100%' }}
+          />
+        </div>
+      )
+    },
+    {
+      id: 'dotgrid',
+      name: 'DotGrid',
+      description: 'Grille de points interactive avec animations',
+      component: (
+        <div className="w-full h-[600px] rounded-2xl overflow-hidden border-2 border-gray-200 shadow-lg">
+          <DotGrid
+            dotSize={2}
+            gap={16}
+            baseColor="#374151"
+            activeColor="#ffffff"
+            proximity={120}
+            speedTrigger={80}
+            shockRadius={250}
+            shockStrength={16}
+            maxSpeed={3000}
+            resistance={750}
+            returnDuration={1.5}
+            style={{ width: '100%', height: '100%' }}
+          />
+        </div>
+      )
+    },
+    {
+      id: 'squares',
+      name: 'Squares',
+      description: 'Grille de carrés animée avec interaction souris',
+      component: (
+        <div className="w-full h-[600px] rounded-2xl overflow-hidden border-2 border-gray-200 shadow-lg">
+          <Squares
+            direction="diagonal"
+            speed={0.1}
+            borderColor="#0e041f"
+            squareSize={22}
+            hoverFillColor="#0e041f"
+            style={{ width: '100%', height: '100%' }}
+          />
+        </div>
+      )
+    },
+    {
+      id: 'galaxy',
+      name: 'Galaxy',
+      description: 'Champ d\'étoiles animé avec interaction souris',
+      component: (
+        <div className="w-full h-[600px] rounded-2xl overflow-hidden border-2 border-gray-200 shadow-lg">
+          <Galaxy
+            focal={[0.5, 0.5]}
+            rotation={[1.0, 0.0]}
+            starSpeed={0.5}
+            density={1.3}
+            hueShift={140}
+            disableAnimation={false}
+            speed={1.0}
+            mouseInteraction={true}
+            glowIntensity={0.3}
+            saturation={0.0}
+            mouseRepulsion={false}
+            repulsionStrength={2}
+            twinkleIntensity={0.3}
+            rotationSpeed={0.1}
+            autoCenterRepulsion={0}
+            transparent={true}
+            style={{ width: '100%', height: '100%' }}
+          />
+        </div>
+      )
+    },
+    {
+      id: 'aurora',
+      name: 'Aurora',
+      description: 'Effet d\'aurore boréale avec WebGL et shaders',
+      component: (
+        <div className="w-full h-[600px] rounded-2xl overflow-hidden border-2 border-gray-200 shadow-lg">
+          <Aurora
+            colorStops={['#ffffff', '#f8f9fa', '#e9ecef']}
+            amplitude={0.8}
+            blend={0.6}
+            style={{ width: '100%', height: '100%' }}
+          />
         </div>
       )
     }
@@ -121,34 +158,20 @@ export default function BackgroundsSection() {
             </p>
           </div>
 
-          {/* Navigation des démos */}
-          <div className="flex flex-wrap justify-center gap-4 mb-12">
-            {backgroundDemos.map((demo) => (
-              <button
-                key={demo.id}
-                onClick={() => setActiveDemo(demo.id)}
-                className={`px-6 py-3 rounded-lg font-medium transition-all ${
-                  activeDemo === demo.id
-                    ? 'text-white'
-                    : 'text-gray-600 hover:text-gray-800'
-                }`}
-                style={{
-                  backgroundColor: activeDemo === demo.id ? colors.primary.blue : colors.background.card,
-                  border: `1px solid ${colors.border.light}`
-                }}
-              >
-                {demo.name}
-              </button>
-            ))}
-          </div>
+              {/* Navigation moderne avec GooeyNav */}
+              <ModernBackgroundNav 
+                backgroundDemos={backgroundDemos}
+                activeDemo={activeDemo}
+                setActiveDemo={setActiveDemo}
+              />
 
-          {/* Démo active */}
-          <div className="mb-8">
+          {/* Zone d'affichage avec contours arrondis */}
+          <div className="mb-8 p-8 rounded-2xl shadow-lg">
             {backgroundDemos.find(demo => demo.id === activeDemo)?.component}
           </div>
 
           {/* Description */}
-          <div className="text-center">
+          <div className="text-center mb-12">
             <h3 className="text-2xl font-semibold mb-4" style={{ color: colors.text.primary }}>
               {backgroundDemos.find(demo => demo.id === activeDemo)?.name}
             </h3>
@@ -157,22 +180,6 @@ export default function BackgroundsSection() {
             </p>
           </div>
 
-          {/* Code d'exemple */}
-          <div className="mt-12 bg-gray-900 rounded-lg p-6">
-            <h4 className="text-white font-semibold mb-4">Code d'exemple :</h4>
-            <pre className="text-green-400 text-sm overflow-x-auto">
-              <code>{`// Utilisation du composant LiquidEther
-<LiquidEther
-  mouseForce={15}
-  cursorSize={80}
-  colors={['#5227FF', '#FF9FFC', '#B19EEF']}
-  autoDemo={true}
-  autoSpeed={0.3}
-  autoIntensity={1.8}
-  resolution={0.4}
-/>`}</code>
-            </pre>
-          </div>
         </div>
       </div>
     </section>

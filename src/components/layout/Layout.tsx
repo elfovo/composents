@@ -1,6 +1,6 @@
 'use client';
 
-import BubbleMenu from '@/components/BubbleMenu.jsx';
+import BubbleMenu from '@/components/navigation/BubbleMenu.jsx';
 import { getMenuConfig } from '@/config/menu';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { colors } from '@/lib/colors';

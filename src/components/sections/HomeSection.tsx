@@ -1,7 +1,7 @@
 'use client';
 
 import { colors } from '@/lib/colors';
-import LiquidEther from '@/components/LiquidEther';
+import LiquidEther from '@/components/backgrounds/LiquidEther.jsx';
 import { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 
