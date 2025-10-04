@@ -159,7 +159,7 @@ export default function NavigationSection() {
               ]}
               displaySocials={true}
               displayItemNumbering={true}
-              logoUrl="logo.svg"
+              logoUrl="logo-white.svg"
               menuButtonColor="#ffffff"
               openMenuButtonColor="#000000"
               accentColor="#5227FF"
