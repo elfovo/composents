@@ -49,6 +49,27 @@
   text-shadow: 0 1px 1px hsl(205deg 30% 10% / 0.2);
 }
 
+/* Scroll horizontal sur petits écrans */
+@media (max-width: 768px) {
+  .gooey-nav-container {
+    overflow-x: auto;
+    overflow-y: hidden;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+  
+  .gooey-nav-container::-webkit-scrollbar {
+    display: none;
+  }
+  
+  .gooey-nav-container nav ul {
+    min-width: max-content;
+    gap: 1.5em;
+    padding: 0 2em;
+  }
+}
+
 .gooey-nav-container nav ul li {
   border-radius: 100vw;
   position: relative;
