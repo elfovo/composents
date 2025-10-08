@@ -11,6 +11,7 @@ const CardNav = lazy(() => import('@/components/navigation/CardNav.jsx'));
 const StaggeredMenu = lazy(() => import('@/components/navigation/StaggeredMenu.jsx'));
 const Dock = lazy(() => import('@/components/navigation/Dock.jsx'));
 const GlassIcons = lazy(() => import('@/components/navigation/GlassIcons.jsx'));
+const AnimatedList = lazy(() => import('@/components/navigation/AnimatedList.jsx'));
 
 export default function NavigationSection() {
   const [activeDemo, setActiveDemo] = useState('bubble');
@@ -327,6 +328,49 @@ export default function NavigationSection() {
           <div className="absolute bottom-4 left-4 right-4 text-center">
             <p className="text-white text-sm opacity-70">
               Icônes avec effet de verre et gradients colorés
+            </p>
+          </div>
+        </div>
+      )
+    },
+    {
+      id: 'animated-list',
+      name: 'AnimatedList',
+      description: 'Liste animée avec navigation au clavier et effets de scroll',
+      component: (
+        <div className="w-full h-[600px] rounded-2xl overflow-hidden border-2 border-gray-200 shadow-lg relative flex items-center justify-center" style={{ backgroundColor: '#000000' }}>
+          <Suspense fallback={<div className="text-white">Chargement...</div>}>
+            <AnimatedList
+              items={[
+                'Accueil',
+                'À propos',
+                'Services',
+                'Portfolio',
+                'Blog',
+                'Contact',
+                'Équipe',
+                'Carrières',
+                'Actualités',
+                'Support',
+                'Documentation',
+                'API',
+                'Partenaires',
+                'Témoignages',
+                'FAQ'
+              ]}
+              onItemSelect={(item, index) => {
+                console.log(`Sélectionné: ${item} (index: ${index})`);
+              }}
+              showGradients={true}
+              enableArrowNavigation={true}
+              displayScrollbar={true}
+              initialSelectedIndex={0}
+              className="shadow-lg"
+            />
+          </Suspense>
+          <div className="absolute bottom-4 left-4 right-4 text-center">
+            <p className="text-white text-sm opacity-70">
+              Liste animée avec navigation au clavier et effets de scroll
             </p>
           </div>
         </div>
