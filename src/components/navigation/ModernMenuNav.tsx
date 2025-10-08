@@ -27,7 +27,6 @@ export default function ModernMenuNav({
   }));
 
   const containerRef = useRef<HTMLDivElement>(null);
-  const scrollContainerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (!containerRef.current) return;
@@ -50,35 +49,10 @@ export default function ModernMenuNav({
     };
   }, [menuDemos, setActiveDemo]);
 
-  // Auto-scroll vers l'élément actif
-  useEffect(() => {
-    if (!scrollContainerRef.current || !containerRef.current) return;
-
-    const activeIndex = menuDemos.findIndex((demo: MenuDemo) => demo.id === activeDemo);
-    if (activeIndex === -1) return;
-
-    const scrollContainer = scrollContainerRef.current;
-    const navContainer = containerRef.current;
-    const activeLink = navContainer.querySelectorAll('a')[activeIndex];
-    
-    if (activeLink) {
-      const scrollContainerRect = scrollContainer.getBoundingClientRect();
-      const activeLinkRect = activeLink.getBoundingClientRect();
-      
-      // Calculer la position pour centrer l'élément actif
-      const scrollLeft = activeLinkRect.left - scrollContainerRect.left - (scrollContainerRect.width / 2) + (activeLinkRect.width / 2);
-      
-      scrollContainer.scrollTo({
-        left: scrollContainer.scrollLeft + scrollLeft,
-        behavior: 'smooth'
-      });
-    }
-  }, [activeDemo, menuDemos]);
-
   return (
     <div className="mb-12">
-      {/* Container scrollable horizontalement */}
-      <div ref={scrollContainerRef} className="overflow-x-auto scrollbar-hide">
+      {/* Container avec scroll horizontal */}
+      <div className="overflow-x-auto scrollbar-hide">
         <div className="flex justify-center min-w-max px-4">
           <div className="relative" ref={containerRef}>
             <GooeyNav
@@ -102,17 +76,17 @@ export default function ModernMenuNav({
               .gooey-nav-container {
                 background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
                 border-radius: 50px;
-                padding: 12px 20px;
+                padding: 8px;
                 box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-                white-space: nowrap;
-                margin: 0 20px;
+                min-width: max-content;
               }
               
               .gooey-nav-container nav ul {
-                gap: 2em;
-                padding: 0 1em;
+                gap: 1.5em;
+                padding: 0 0.5em;
                 display: flex;
                 flex-wrap: nowrap;
+                white-space: nowrap;
               }
               
               .gooey-nav-container nav ul li {
@@ -120,61 +94,27 @@ export default function ModernMenuNav({
               }
               
               .gooey-nav-container nav ul li a {
-                padding: 1em 1.5em;
+                padding: 0.8em 1.2em;
                 font-weight: 600;
                 font-size: 0.9rem;
                 letter-spacing: 0.5px;
                 white-space: nowrap;
               }
-              
-              /* Styles pour le scroll horizontal */
-              .scrollbar-hide {
-                -ms-overflow-style: none;
-                scrollbar-width: none;
-              }
-              
-              .scrollbar-hide::-webkit-scrollbar {
-                display: none;
-              }
-              
-              /* Responsive breakpoints */
-              @media (max-width: 768px) {
-                .gooey-nav-container {
-                  padding: 10px 16px;
-                  margin: 0 15px;
-                }
-                
-                .gooey-nav-container nav ul {
-                  gap: 1.5em;
-                  padding: 0 0.8em;
-                }
-                
-                .gooey-nav-container nav ul li a {
-                  padding: 0.8em 1.2em;
-                  font-size: 0.85rem;
-                }
-              }
-              
-              @media (max-width: 480px) {
-                .gooey-nav-container {
-                  padding: 8px 12px;
-                  margin: 0 10px;
-                }
-                
-                .gooey-nav-container nav ul {
-                  gap: 1.2em;
-                  padding: 0 0.6em;
-                }
-                
-                .gooey-nav-container nav ul li a {
-                  padding: 0.7em 1em;
-                  font-size: 0.8rem;
-                }
-              }
             `}</style>
           </div>
         </div>
       </div>
+      
+      {/* Styles pour masquer la scrollbar tout en gardant le scroll */}
+      <style jsx global>{`
+        .scrollbar-hide {
+          -ms-overflow-style: none;
+          scrollbar-width: none;
+        }
+        .scrollbar-hide::-webkit-scrollbar {
+          display: none;
+        }
+      `}</style>
     </div>
   );
 }
