@@ -341,6 +341,7 @@ export const StaggeredMenu = ({
             width={110}
             height={24}
           />
+          <span className="sm-logo-text">MonDev</span>
         </div>
         <button
           ref={toggleBtnRef}
