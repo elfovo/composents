@@ -1,12 +1,12 @@
 'use client';
 
 import { colors } from '@/lib/colors';
-import { ModernMenuNav } from '@/components/navigation';
+import { GooeyNav } from '@/components/navigation';
 import { useState, lazy, Suspense } from 'react';
 
 // Lazy loading des composants de navigation
 const BubbleMenu = lazy(() => import('@/components/navigation/BubbleMenu.jsx'));
-const GooeyNav = lazy(() => import('@/components/navigation/GooeyNav.jsx'));
+const GooeyNavComponent = lazy(() => import('@/components/navigation/GooeyNav.jsx'));
 const CardNav = lazy(() => import('@/components/navigation/CardNav.jsx'));
 const StaggeredMenu = lazy(() => import('@/components/navigation/StaggeredMenu.jsx'));
 const Dock = lazy(() => import('@/components/navigation/Dock.jsx'));
@@ -60,7 +60,7 @@ export default function NavigationSection() {
           <div className="absolute inset-0" style={{ backgroundColor: '#000000' }} />
           <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
             <Suspense fallback={<div className="text-white">Chargement...</div>}>
-              <GooeyNav
+              <GooeyNavComponent
                 items={[
                   { label: 'Demo 1', href: '#' },
                   { label: 'Demo 2', href: '#' },
@@ -392,11 +392,24 @@ export default function NavigationSection() {
           </div>
 
           {/* Navigation moderne avec GooeyNav */}
-          <ModernMenuNav 
-            menuDemos={navigationDemos}
-            activeDemo={activeDemo}
-            setActiveDemo={setActiveDemo}
-          />
+          <div className="flex justify-center mb-12">
+            <GooeyNav
+              items={navigationDemos.map(demo => ({
+                label: demo.name,
+                href: '#'
+              }))}
+              animationTime={600}
+              particleCount={12}
+              particleDistances={[80, 8]}
+              particleR={80}
+              timeVariance={200}
+              colors={[1, 2, 3, 1, 2, 3, 1, 4]}
+              initialActiveIndex={navigationDemos.findIndex(demo => demo.id === activeDemo)}
+              onItemClick={(item, index) => {
+                setActiveDemo(navigationDemos[index].id);
+              }}
+            />
+          </div>
 
           {/* Zone d'affichage avec contours arrondis */}
           <div className="mb-8 p-8 rounded-2xl shadow-lg" style={{ backgroundColor: '#000000' }}>

@@ -2,7 +2,7 @@
 
 import { colors } from '@/lib/colors';
 import { Aurora, DotGrid, Galaxy, LiquidEther, Orb, Squares, Threads } from '@/components/backgrounds';
-import { ModernBackgroundNav } from '@/components/navigation';
+import { GooeyNav } from '@/components/navigation';
 import { useState } from 'react';
 
 export default function BackgroundsSection() {
@@ -158,12 +158,25 @@ export default function BackgroundsSection() {
             </p>
           </div>
 
-              {/* Navigation moderne avec GooeyNav */}
-              <ModernBackgroundNav 
-                backgroundDemos={backgroundDemos}
-                activeDemo={activeDemo}
-                setActiveDemo={setActiveDemo}
-              />
+          {/* Navigation moderne avec GooeyNav */}
+          <div className="flex justify-center mb-12">
+            <GooeyNav
+              items={backgroundDemos.map(demo => ({
+                label: demo.name,
+                href: '#'
+              }))}
+              animationTime={600}
+              particleCount={12}
+              particleDistances={[80, 8]}
+              particleR={80}
+              timeVariance={200}
+              colors={[1, 2, 3, 1, 2, 3, 1, 4]}
+              initialActiveIndex={backgroundDemos.findIndex(demo => demo.id === activeDemo)}
+              onItemClick={(item, index) => {
+                setActiveDemo(backgroundDemos[index].id);
+              }}
+            />
+          </div>
 
           {/* Zone d'affichage avec contours arrondis */}
           <div className="mb-8 p-8 rounded-2xl shadow-lg">
