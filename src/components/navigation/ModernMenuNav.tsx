@@ -65,48 +65,47 @@ export default function ModernMenuNav({
               colors={[1, 2, 3, 1, 2, 3, 1, 4]}
               initialActiveIndex={menuDemos.findIndex((demo: MenuDemo) => demo.id === activeDemo)}
             />
-            <style jsx>{`
-              :root {
-                --color-1: #5239ff;
-                --color-2: #ffffff;
-                --color-3: #f8f9fa;
-                --color-4: #e9ecef;
-              }
-              
-              .gooey-nav-container {
-                background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
-                border-radius: 50px;
-                padding: 8px;
-                box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-                min-width: max-content;
-              }
-              
-              .gooey-nav-container nav ul {
-                gap: 1.5em;
-                padding: 0 0.5em;
-                display: flex;
-                flex-wrap: nowrap;
-                white-space: nowrap;
-              }
-              
-              .gooey-nav-container nav ul li {
-                flex-shrink: 0;
-              }
-              
-              .gooey-nav-container nav ul li a {
-                padding: 0.8em 1.2em;
-                font-weight: 600;
-                font-size: 0.9rem;
-                letter-spacing: 0.5px;
-                white-space: nowrap;
-              }
-            `}</style>
           </div>
         </div>
       </div>
       
-      {/* Styles pour masquer la scrollbar tout en gardant le scroll */}
+      {/* Styles fusionnés */}
       <style jsx global>{`
+        :root {
+          --color-1: #5239ff;
+          --color-2: #ffffff;
+          --color-3: #f8f9fa;
+          --color-4: #e9ecef;
+        }
+        
+        .gooey-nav-container {
+          background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+          border-radius: 50px;
+          padding: 8px;
+          box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+          min-width: max-content;
+        }
+        
+        .gooey-nav-container nav ul {
+          gap: 1.5em;
+          padding: 0 0.5em;
+          display: flex;
+          flex-wrap: nowrap;
+          white-space: nowrap;
+        }
+        
+        .gooey-nav-container nav ul li {
+          flex-shrink: 0;
+        }
+        
+        .gooey-nav-container nav ul li a {
+          padding: 0.8em 1.2em;
+          font-weight: 600;
+          font-size: 0.9rem;
+          letter-spacing: 0.5px;
+          white-space: nowrap;
+        }
+        
         .scrollbar-hide {
           -ms-overflow-style: none;
           scrollbar-width: none;
