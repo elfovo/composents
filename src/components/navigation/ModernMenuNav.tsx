@@ -102,14 +102,15 @@ export default function ModernMenuNav({
               .gooey-nav-container {
                 background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
                 border-radius: 50px;
-                padding: 8px;
+                padding: 12px 20px;
                 box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
                 white-space: nowrap;
+                margin: 0 20px;
               }
               
               .gooey-nav-container nav ul {
-                gap: 1.5em;
-                padding: 0 0.5em;
+                gap: 2em;
+                padding: 0 1em;
                 display: flex;
                 flex-wrap: nowrap;
               }
@@ -119,7 +120,7 @@ export default function ModernMenuNav({
               }
               
               .gooey-nav-container nav ul li a {
-                padding: 0.8em 1.2em;
+                padding: 1em 1.5em;
                 font-weight: 600;
                 font-size: 0.9rem;
                 letter-spacing: 0.5px;
@@ -138,24 +139,36 @@ export default function ModernMenuNav({
               
               /* Responsive breakpoints */
               @media (max-width: 768px) {
+                .gooey-nav-container {
+                  padding: 10px 16px;
+                  margin: 0 15px;
+                }
+                
                 .gooey-nav-container nav ul {
-                  gap: 1em;
+                  gap: 1.5em;
+                  padding: 0 0.8em;
                 }
                 
                 .gooey-nav-container nav ul li a {
-                  padding: 0.6em 1em;
-                  font-size: 0.8rem;
+                  padding: 0.8em 1.2em;
+                  font-size: 0.85rem;
                 }
               }
               
               @media (max-width: 480px) {
+                .gooey-nav-container {
+                  padding: 8px 12px;
+                  margin: 0 10px;
+                }
+                
                 .gooey-nav-container nav ul {
-                  gap: 0.8em;
+                  gap: 1.2em;
+                  padding: 0 0.6em;
                 }
                 
                 .gooey-nav-container nav ul li a {
-                  padding: 0.5em 0.8em;
-                  font-size: 0.75rem;
+                  padding: 0.7em 1em;
+                  font-size: 0.8rem;
                 }
               }
             `}</style>
