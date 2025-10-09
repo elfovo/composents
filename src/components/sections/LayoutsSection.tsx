@@ -1,6 +1,7 @@
 'use client';
 
 import { colors } from '@/lib/colors';
+import { ModernLayoutNav } from '@/components/navigation';
 import { useState } from 'react';
 
 export default function LayoutsSection() {
@@ -151,30 +152,18 @@ export default function LayoutsSection() {
             </p>
           </div>
 
-          {/* Navigation des démos */}
-          <div className="flex flex-wrap justify-center gap-4 mb-12">
-            {layoutDemos.map((demo) => (
-              <button
-                key={demo.id}
-                onClick={() => setActiveDemo(demo.id)}
-                className={`px-6 py-3 rounded-lg font-medium transition-all ${
-                  activeDemo === demo.id
-                    ? 'text-white'
-                    : 'text-gray-600 hover:text-gray-800'
-                }`}
-                style={{
-                  backgroundColor: activeDemo === demo.id ? colors.primary.blue : colors.background.card,
-                  border: `1px solid ${colors.border.light}`
-                }}
-              >
-                {demo.name}
-              </button>
-            ))}
-          </div>
+          {/* Navigation moderne avec GooeyNav */}
+          <ModernLayoutNav 
+            layoutDemos={layoutDemos}
+            activeDemo={activeDemo}
+            setActiveDemo={setActiveDemo}
+          />
 
-          {/* Démo active */}
-          <div className="mb-8 p-8 rounded-xl" style={{ backgroundColor: colors.background.card }}>
-            {layoutDemos.find(demo => demo.id === activeDemo)?.component}
+          {/* Zone d'affichage avec contours arrondis */}
+          <div className="mb-8 p-8 rounded-2xl shadow-lg" style={{ backgroundColor: '#000000' }}>
+            <div className="w-full h-[600px] rounded-2xl overflow-hidden border-2 border-gray-200 shadow-lg relative flex items-center justify-center" style={{ backgroundColor: '#000000' }}>
+              {layoutDemos.find(demo => demo.id === activeDemo)?.component}
+            </div>
           </div>
 
           {/* Description */}
@@ -187,27 +176,6 @@ export default function LayoutsSection() {
             </p>
           </div>
 
-          {/* Code d'exemple */}
-          <div className="bg-gray-900 rounded-lg p-6">
-            <h4 className="text-white font-semibold mb-4">Code d'exemple :</h4>
-            <pre className="text-green-400 text-sm overflow-x-auto">
-              <code>{`// Grille responsive
-<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-  <div className="bg-white rounded-lg shadow-lg p-6">
-    <h3 className="text-xl font-semibold mb-3">Titre</h3>
-    <p className="text-gray-600">Contenu</p>
-  </div>
-</div>
-
-// Formulaire
-<form className="space-y-4">
-  <div>
-    <label className="block text-sm font-medium mb-1">Label</label>
-    <input className="w-full px-3 py-2 border rounded-md focus:ring-2 focus:ring-blue-500" />
-  </div>
-</form>`}</code>
-            </pre>
-          </div>
         </div>
       </div>
     </section>

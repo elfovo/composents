@@ -1,6 +1,7 @@
 'use client';
 
 import { colors } from '@/lib/colors';
+import { ModernAnimationNav } from '@/components/navigation';
 import { useState } from 'react';
 
 export default function AnimationsSection() {
@@ -111,30 +112,18 @@ export default function AnimationsSection() {
             </p>
           </div>
 
-          {/* Navigation des démos */}
-          <div className="flex flex-wrap justify-center gap-4 mb-12">
-            {animationDemos.map((demo) => (
-              <button
-                key={demo.id}
-                onClick={() => setActiveDemo(demo.id)}
-                className={`px-6 py-3 rounded-lg font-medium transition-all ${
-                  activeDemo === demo.id
-                    ? 'text-white'
-                    : 'text-gray-600 hover:text-gray-800'
-                }`}
-                style={{
-                  backgroundColor: activeDemo === demo.id ? colors.primary.blue : colors.background.card,
-                  border: `1px solid ${colors.border.light}`
-                }}
-              >
-                {demo.name}
-              </button>
-            ))}
-          </div>
+          {/* Navigation moderne avec GooeyNav */}
+          <ModernAnimationNav 
+            animationDemos={animationDemos}
+            activeDemo={activeDemo}
+            setActiveDemo={setActiveDemo}
+          />
 
-          {/* Démo active */}
-          <div className="mb-8 p-8 rounded-xl" style={{ backgroundColor: colors.background.card }}>
-            {animationDemos.find(demo => demo.id === activeDemo)?.component}
+          {/* Zone d'affichage avec contours arrondis */}
+          <div className="mb-8 p-8 rounded-2xl shadow-lg" style={{ backgroundColor: '#000000' }}>
+            <div className="w-full h-[600px] rounded-2xl overflow-hidden border-2 border-gray-200 shadow-lg relative flex items-center justify-center" style={{ backgroundColor: '#000000' }}>
+              {animationDemos.find(demo => demo.id === activeDemo)?.component}
+            </div>
           </div>
 
           {/* Description */}
@@ -147,28 +136,6 @@ export default function AnimationsSection() {
             </p>
           </div>
 
-          {/* Code d'exemple */}
-          <div className="bg-gray-900 rounded-lg p-6">
-            <h4 className="text-white font-semibold mb-4">Code d'exemple :</h4>
-            <pre className="text-green-400 text-sm overflow-x-auto">
-              <code>{`// Animation de survol
-<div className="hover:scale-110 hover:rotate-3 transition-all duration-300">
-  Contenu
-</div>
-
-// Animation de chargement
-<div className="w-8 h-8 border-4 border-blue-200 border-t-blue-600 rounded-full animate-spin"></div>
-
-// Animation personnalisée
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-.animate-fade-in {
-  animation: fadeIn 0.6s ease-out;
-}`}</code>
-            </pre>
-          </div>
         </div>
       </div>
 
