@@ -11,88 +11,83 @@ export default function AnimationsSection() {
     {
       id: 'fade',
       name: 'Fade & Slide',
-      description: 'Animations de fondu et glissement',
+      description: 'Animations de fondu et de glissement',
       component: (
         <div className="space-y-6">
-          <div className="flex flex-wrap gap-4 justify-center">
-            <div className="w-20 h-20 bg-blue-500 rounded-lg animate-fade-in"></div>
-            <div className="w-20 h-20 bg-green-500 rounded-lg animate-slide-in-left"></div>
-            <div className="w-20 h-20 bg-purple-500 rounded-lg animate-slide-in-right"></div>
-            <div className="w-20 h-20 bg-red-500 rounded-lg animate-slide-in-up"></div>
+          <div className="bg-white p-6 rounded-lg shadow-lg">
+            <h3 className="text-xl font-semibold mb-4 text-gray-800">Fade In</h3>
+            <div className="w-full h-20 bg-gradient-to-r from-blue-500 to-purple-500 rounded-lg opacity-0 animate-fade-in">
+              <div className="flex items-center justify-center h-full text-white font-medium">
+                Animation Fade In
+              </div>
+            </div>
           </div>
-          <div className="text-center">
-            <p className="text-gray-600">Rechargez la page pour voir les animations</p>
+          <div className="bg-white p-6 rounded-lg shadow-lg">
+            <h3 className="text-xl font-semibold mb-4 text-gray-800">Slide Up</h3>
+            <div className="w-full h-20 bg-gradient-to-r from-green-500 to-teal-500 rounded-lg transform translate-y-4 opacity-0 animate-slide-up">
+              <div className="flex items-center justify-center h-full text-white font-medium">
+                Animation Slide Up
+              </div>
+            </div>
           </div>
         </div>
       )
     },
     {
       id: 'hover',
-      name: 'Effets de Survol',
+      name: 'Effets de survol',
       description: 'Animations au survol des éléments',
       component: (
-        <div className="flex flex-wrap gap-6 justify-center">
-          <div className="w-32 h-32 bg-gradient-to-br from-pink-500 to-purple-600 rounded-lg hover:scale-110 hover:rotate-3 transition-all duration-300 cursor-pointer flex items-center justify-center text-white font-bold">
-            Scale + Rotate
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300 cursor-pointer">
+            <h3 className="text-xl font-semibold mb-4 text-gray-800">Scale Hover</h3>
+            <p className="text-gray-600">Survolez cette carte pour voir l'effet de zoom</p>
           </div>
-          <div className="w-32 h-32 bg-gradient-to-br from-blue-500 to-cyan-600 rounded-lg hover:shadow-2xl hover:shadow-blue-500/50 transition-all duration-300 cursor-pointer flex items-center justify-center text-white font-bold">
-            Shadow Glow
-          </div>
-          <div className="w-32 h-32 bg-gradient-to-br from-green-500 to-emerald-600 rounded-lg hover:brightness-110 hover:contrast-110 transition-all duration-300 cursor-pointer flex items-center justify-center text-white font-bold">
-            Brightness
+          <div className="bg-gradient-to-br from-pink-500 to-rose-500 p-6 rounded-lg text-white hover:from-pink-600 hover:to-rose-600 transition-all duration-300 cursor-pointer">
+            <h3 className="text-xl font-semibold mb-4">Gradient Hover</h3>
+            <p className="opacity-90">Survolez pour changer le gradient</p>
           </div>
         </div>
       )
     },
     {
-      id: 'loading',
-      name: 'Animations de Chargement',
-      description: 'Spinners et indicateurs de chargement',
+      id: 'spinners',
+      name: 'Spinners',
+      description: 'Indicateurs de chargement animés',
       component: (
         <div className="flex flex-wrap gap-8 justify-center items-center">
-          <div className="flex flex-col items-center space-y-2">
-            <div className="w-8 h-8 border-4 border-blue-200 border-t-blue-600 rounded-full animate-spin"></div>
-            <span className="text-sm text-gray-600">Spinner</span>
+          <div className="text-center">
+            <div className="w-12 h-12 border-4 border-gray-200 border-t-blue-500 rounded-full animate-spin mb-2"></div>
+            <p className="text-sm text-gray-600">Spinner classique</p>
           </div>
-          <div className="flex flex-col items-center space-y-2">
-            <div className="flex space-x-1">
-              <div className="w-2 h-8 bg-blue-600 rounded animate-bounce" style={{ animationDelay: '0ms' }}></div>
-              <div className="w-2 h-8 bg-blue-600 rounded animate-bounce" style={{ animationDelay: '150ms' }}></div>
-              <div className="w-2 h-8 bg-blue-600 rounded animate-bounce" style={{ animationDelay: '300ms' }}></div>
-            </div>
-            <span className="text-sm text-gray-600">Bars</span>
+          <div className="text-center">
+            <div className="w-12 h-12 border-4 border-gray-200 border-r-green-500 rounded-full animate-spin mb-2"></div>
+            <p className="text-sm text-gray-600">Spinner vert</p>
           </div>
-          <div className="flex flex-col items-center space-y-2">
-            <div className="flex space-x-1">
-              <div className="w-3 h-3 bg-purple-600 rounded-full animate-pulse" style={{ animationDelay: '0ms' }}></div>
-              <div className="w-3 h-3 bg-purple-600 rounded-full animate-pulse" style={{ animationDelay: '200ms' }}></div>
-              <div className="w-3 h-3 bg-purple-600 rounded-full animate-pulse" style={{ animationDelay: '400ms' }}></div>
-            </div>
-            <span className="text-sm text-gray-600">Dots</span>
+          <div className="text-center">
+            <div className="w-12 h-12 border-4 border-gray-200 border-b-purple-500 rounded-full animate-spin mb-2"></div>
+            <p className="text-sm text-gray-600">Spinner violet</p>
           </div>
         </div>
       )
     },
     {
       id: 'transitions',
-      name: 'Transitions Avancées',
-      description: 'Transitions complexes et effets de page',
+      name: 'Transitions avancées',
+      description: 'Animations complexes et fluides',
       component: (
         <div className="space-y-6">
-          <div className="grid grid-cols-2 gap-4">
-            <div className="bg-gradient-to-r from-orange-400 to-pink-500 p-6 rounded-lg text-white transform transition-all duration-500 hover:scale-105 hover:rotate-1">
-              <h4 className="font-bold mb-2">Card 1</h4>
-              <p>Effet de transformation complexe</p>
-            </div>
-            <div className="bg-gradient-to-r from-cyan-400 to-blue-500 p-6 rounded-lg text-white transform transition-all duration-500 hover:scale-105 hover:-rotate-1">
-              <h4 className="font-bold mb-2">Card 2</h4>
-              <p>Rotation inverse</p>
-            </div>
+          <div className="bg-white p-6 rounded-lg shadow-lg">
+            <h3 className="text-xl font-semibold mb-4 text-gray-800">Bounce Effect</h3>
+            <div className="w-16 h-16 bg-red-500 rounded-full animate-bounce mx-auto"></div>
           </div>
-          <div className="text-center">
-            <div className="inline-block px-6 py-3 bg-gradient-to-r from-purple-600 to-blue-600 text-white rounded-lg font-medium transform transition-all duration-300 hover:scale-110 hover:shadow-lg hover:shadow-purple-500/50">
-              Bouton avec effet complet
-            </div>
+          <div className="bg-white p-6 rounded-lg shadow-lg">
+            <h3 className="text-xl font-semibold mb-4 text-gray-800">Pulse Effect</h3>
+            <div className="w-16 h-16 bg-blue-500 rounded-full animate-pulse mx-auto"></div>
+          </div>
+          <div className="bg-white p-6 rounded-lg shadow-lg">
+            <h3 className="text-xl font-semibold mb-4 text-gray-800">Ping Effect</h3>
+            <div className="w-16 h-16 bg-green-500 rounded-full animate-ping mx-auto"></div>
           </div>
         </div>
       )
@@ -105,10 +100,10 @@ export default function AnimationsSection() {
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-16">
             <h2 className="text-4xl font-bold mb-4" style={{ color: colors.text.primary }}>
-              Animations & Effets
+              Animations
             </h2>
             <p className="text-xl" style={{ color: colors.text.muted }}>
-              Collection d'animations CSS et effets visuels
+              Effets d'animation et transitions fluides
             </p>
           </div>
 
@@ -138,45 +133,6 @@ export default function AnimationsSection() {
 
         </div>
       </div>
-
-      {/* Styles CSS pour les animations */}
-      <style jsx>{`
-        @keyframes fadeIn {
-          from { opacity: 0; transform: translateY(20px); }
-          to { opacity: 1; transform: translateY(0); }
-        }
-        
-        @keyframes slideInLeft {
-          from { opacity: 0; transform: translateX(-50px); }
-          to { opacity: 1; transform: translateX(0); }
-        }
-        
-        @keyframes slideInRight {
-          from { opacity: 0; transform: translateX(50px); }
-          to { opacity: 1; transform: translateX(0); }
-        }
-        
-        @keyframes slideInUp {
-          from { opacity: 0; transform: translateY(50px); }
-          to { opacity: 1; transform: translateY(0); }
-        }
-        
-        .animate-fade-in {
-          animation: fadeIn 0.6s ease-out;
-        }
-        
-        .animate-slide-in-left {
-          animation: slideInLeft 0.6s ease-out;
-        }
-        
-        .animate-slide-in-right {
-          animation: slideInRight 0.6s ease-out;
-        }
-        
-        .animate-slide-in-up {
-          animation: slideInUp 0.6s ease-out;
-        }
-      `}</style>
     </section>
   );
 }
