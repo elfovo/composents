@@ -3,6 +3,7 @@
 import { colors } from '@/lib/colors';
 import { ModernLayoutNav } from '@/components/navigation';
 import { OutlineInput } from '@/components/inputs';
+import { LoginForm, SignupForm } from '@/components/layouts';
 import { useState } from 'react';
 
 export default function LayoutsSection() {
@@ -41,6 +42,36 @@ export default function LayoutsSection() {
               onFocus={() => setShowValidation(false)}
             />
           </div>
+        </div>
+      )
+    },
+    {
+      id: 'login',
+      name: 'Formulaire de connexion',
+      description: 'Composant complet de page de connexion',
+      component: (
+        <div className="flex items-center justify-center h-full w-full px-4">
+          <LoginForm 
+            onSubmit={(data) => {
+              console.log('Connexion:', data);
+              alert(`Connexion réussie pour ${data.email}`);
+            }}
+          />
+        </div>
+      )
+    },
+    {
+      id: 'signup',
+      name: 'Formulaire d\'inscription',
+      description: 'Composant complet de création de compte',
+      component: (
+        <div className="flex items-center justify-center h-full w-full px-4">
+          <SignupForm 
+            onSubmit={(data) => {
+              console.log('Inscription:', data);
+              alert(`Compte créé pour ${data.email}`);
+            }}
+          />
         </div>
       )
     }

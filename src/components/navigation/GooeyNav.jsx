@@ -94,7 +94,9 @@ const GooeyNav = ({
   };
 
   const handleClick = (e, index) => {
-    e.preventDefault(); // Empêche la navigation
+    if (e && e.preventDefault) {
+      e.preventDefault(); // Empêche la navigation
+    }
     const liEl = e.currentTarget;
     if (activeIndex === index) return;
 
@@ -122,8 +124,24 @@ const GooeyNav = ({
     if (e.key === 'Enter' || e.key === ' ') {
       e.preventDefault();
       const liEl = e.currentTarget.parentElement;
-      if (liEl) {
-        handleClick({ currentTarget: liEl }, index);
+      if (liEl && activeIndex !== index) {
+        setActiveIndex(index);
+        updateEffectPosition(liEl);
+
+        if (filterRef.current) {
+          const particles = filterRef.current.querySelectorAll('.particle');
+          particles.forEach(p => filterRef.current.removeChild(p));
+        }
+
+        if (textRef.current) {
+          textRef.current.classList.remove('active');
+          void textRef.current.offsetWidth;
+          textRef.current.classList.add('active');
+        }
+
+        if (filterRef.current) {
+          makeParticles(filterRef.current);
+        }
       }
     }
   };

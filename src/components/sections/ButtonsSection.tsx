@@ -2,7 +2,7 @@
 
 import { colors } from '@/lib/colors';
 import { ModernButtonNav } from '@/components/navigation';
-import { SimpleButton, GradientButton, OutlineButton } from '@/components/buttons';
+import { SimpleButton, GradientButton, OutlineButton, CancelButton, SquareButton, SquareButtonFilled } from '@/components/buttons';
 import { useState } from 'react';
 
 export default function ButtonsSection() {
@@ -42,6 +42,40 @@ export default function ButtonsSection() {
           <OutlineButton size="lg" variant="white">
             Bouton Outline
           </OutlineButton>
+        </div>
+      )
+    },
+    {
+      id: 'cancel',
+      name: 'Bouton Cancel',
+      description: 'Bouton rond avec croix pour annuler',
+      component: (
+        <div className="flex justify-center items-center">
+          <CancelButton size="lg" />
+        </div>
+      )
+    },
+    {
+      id: 'square',
+      name: 'Bouton Square',
+      description: 'Bouton avec bordure blanche et bords carrés',
+      component: (
+        <div className="flex justify-center items-center">
+          <SquareButton size="lg" variant="white">
+            Bouton Square
+          </SquareButton>
+        </div>
+      )
+    },
+    {
+      id: 'squarefilled',
+      name: 'Bouton Square Filled',
+      description: 'Bouton blanc plein avec bords carrés',
+      component: (
+        <div className="flex justify-center items-center">
+          <SquareButtonFilled size="lg" variant="white">
+            Bouton Square Filled
+          </SquareButtonFilled>
         </div>
       )
     }
