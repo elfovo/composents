@@ -3,7 +3,8 @@
 import { colors } from '@/lib/colors';
 import { ModernLayoutNav } from '@/components/navigation';
 import { OutlineInput } from '@/components/inputs';
-import { LoginForm, SignupForm } from '@/components/layouts';
+import { LoginForm, SignupForm, ResetPasswordForm } from '@/components/layouts';
+import { SocialLoginButtons } from '@/components/buttons';
 import { useState } from 'react';
 
 export default function LayoutsSection() {
@@ -72,6 +73,43 @@ export default function LayoutsSection() {
               alert(`Compte créé pour ${data.email}`);
             }}
           />
+        </div>
+      )
+    },
+    {
+      id: 'resetpassword',
+      name: 'Formulaire de réinitialisation',
+      description: 'Composant pour réinitialiser le mot de passe',
+      component: (
+        <div className="flex items-center justify-center h-full w-full px-4">
+          <ResetPasswordForm 
+            onSubmit={(data) => {
+              console.log('Réinitialisation:', data);
+              alert(`Mot de passe réinitialisé pour ${data.email}`);
+            }}
+          />
+        </div>
+      )
+    },
+    {
+      id: 'sociallogin',
+      name: 'Connexion sociale',
+      description: 'Boutons de connexion avec Apple et Google',
+      component: (
+        <div className="flex items-center justify-center h-full w-full px-4">
+          <div className="max-w-sm sm:max-w-md w-full">
+            <SocialLoginButtons
+              onAppleLogin={() => {
+                console.log('Connexion Apple');
+                alert('Connexion avec Apple');
+              }}
+              onGoogleLogin={() => {
+                console.log('Connexion Google');
+                alert('Connexion avec Google');
+              }}
+              size="lg"
+            />
+          </div>
         </div>
       )
     }

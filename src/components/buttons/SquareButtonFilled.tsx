@@ -17,7 +17,7 @@ export default function SquareButtonFilled({
   size = 'md',
   variant = 'white'
 }: SquareButtonFilledProps) {
-  const baseClasses = 'rounded-full font-black shadow-lg hover:shadow-xl transition-all duration-300 w-full hover:scale-105';
+  const baseClasses = 'rounded-none font-black shadow-lg hover:shadow-xl transition-all duration-300 w-full hover:scale-105';
   
   const sizeClasses = {
     sm: 'px-2 py-2 text-xs sm:px-3 sm:py-2 sm:text-sm',

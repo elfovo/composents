@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { OutlineInput } from '@/components/inputs';
-import { SquareButtonFilled } from '@/components/buttons';
+import { SimpleButton } from '@/components/buttons';
 
 interface LoginFormProps {
   onSubmit?: (data: { email: string; password: string }) => void;
@@ -173,8 +173,7 @@ export default function LoginForm({
           </a>
         </div>
         
-        <SquareButtonFilled
-          variant="white"
+        <SimpleButton
           size="lg"
           className="w-full"
           disabled={isLoading}
@@ -187,7 +186,7 @@ export default function LoginForm({
           ) : (
             'Se connecter'
           )}
-        </SquareButtonFilled>
+        </SimpleButton>
       </form>
       
       <div className="text-center mt-4 sm:mt-6">
