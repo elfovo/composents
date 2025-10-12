@@ -1,7 +1,7 @@
 'use client';
 
 import { colors } from '@/lib/colors';
-import { CurvedLoop, AnimatedContent, FadeContent, ElectricBorder, MagnetLines, Magnet, Cubes, MetallicPaint, ShapeBlur, MetaBalls } from '@/components/animations';
+import { CurvedLoop, AnimatedContent, FadeContent, ElectricBorder, MagnetLines, Magnet, Cubes, MetallicPaint, ShapeBlur, MetaBalls, CircularText, FuzzyText } from '@/components/animations';
 import GooeyNav from '@/components/navigation/GooeyNav.jsx';
 import { useState, useEffect, useRef } from 'react';
 
@@ -288,13 +288,51 @@ export default function AnimationsSection() {
               speed={0.3}
               enableMouseInteraction={false}
               hoverSmoothness={0.05}
-              animationSize={30}
+              animationSize={50}
               ballCount={15}
               clumpFactor={1}
               cursorBallSize={3}
               cursorBallColor="#ffffff"
               enableTransparency={true}
             />
+          </div>
+        </div>
+      )
+    },
+    {
+      id: 'circulartext',
+      name: 'CircularText',
+      description: 'Texte circulaire animé avec effets au survol',
+      component: (
+        <div className="bg-black w-full h-full flex items-center justify-center p-8">
+          <div className="w-full h-full flex items-center justify-center">
+            <CircularText 
+              text="REACT*BITS*COMPONENTS*"
+              spinDuration={15}
+              onHover="speedUp"
+              className="text-white text-2xl font-bold"
+            />
+          </div>
+        </div>
+      )
+    },
+    {
+      id: 'fuzzytext',
+      name: 'FuzzyText',
+      description: 'Texte avec effet de flou animé et interactif',
+      component: (
+        <div className="bg-black w-full h-full flex items-center justify-center p-8">
+          <div className="w-full h-full flex items-center justify-center">
+            <FuzzyText 
+              fontSize="clamp(2rem, 8vw, 6rem)"
+              fontWeight={900}
+              color="#ffffff"
+              enableHover={true}
+              baseIntensity={0.18}
+              hoverIntensity={0.5}
+            >
+              FUZZY TEXT EFFECT
+            </FuzzyText>
           </div>
         </div>
       )

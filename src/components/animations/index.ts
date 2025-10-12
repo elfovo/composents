@@ -8,3 +8,5 @@ export { default as Cubes } from './Cubes';
 export { default as MetallicPaint } from './MetallicPaint';
 export { default as ShapeBlur } from './ShapeBlur';
 export { default as MetaBalls } from './MetaBalls';
+export { default as CircularText } from './CircularText';
+export { default as FuzzyText } from './FuzzyText';
