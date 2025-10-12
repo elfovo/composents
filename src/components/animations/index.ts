@@ -1,1 +1,10 @@
 export { default as CurvedLoop } from './CurvedLoop';
+export { default as AnimatedContent } from './AnimatedContent';
+export { default as FadeContent } from './FadeContent';
+export { default as ElectricBorder } from './ElectricBorder';
+export { default as MagnetLines } from './MagnetLines';
+export { default as Magnet } from './Magnet';
+export { default as Cubes } from './Cubes';
+export { default as MetallicPaint } from './MetallicPaint';
+export { default as ShapeBlur } from './ShapeBlur';
+export { default as MetaBalls } from './MetaBalls';
