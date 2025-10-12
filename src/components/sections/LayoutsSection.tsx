@@ -17,7 +17,7 @@ export default function LayoutsSection() {
   const layoutDemos = [
     {
       id: 'forms',
-      name: 'Champs d\'écriture',
+      name: 'OutlineInput',
       description: 'Composant de saisie avec style outline',
       component: (
         <div className="max-w-md mx-auto p-8">
@@ -50,7 +50,7 @@ export default function LayoutsSection() {
     },
     {
       id: 'login',
-      name: 'Formulaire de connexion',
+      name: 'LoginForm',
       description: 'Composant complet de page de connexion',
       component: (
         <div className="flex items-center justify-center h-full w-full px-4">
@@ -65,7 +65,7 @@ export default function LayoutsSection() {
     },
     {
       id: 'signup',
-      name: 'Formulaire d\'inscription',
+      name: 'SignupForm',
       description: 'Composant complet de création de compte',
       component: (
         <div className="flex items-center justify-center h-full w-full px-4">
@@ -80,7 +80,7 @@ export default function LayoutsSection() {
     },
     {
       id: 'resetpassword',
-      name: 'Formulaire de réinitialisation',
+      name: 'ResetPasswordForm',
       description: 'Composant pour réinitialiser le mot de passe',
       component: (
         <div className="flex items-center justify-center h-full w-full px-4">
@@ -95,7 +95,7 @@ export default function LayoutsSection() {
     },
     {
       id: 'sociallogin',
-      name: 'Connexion sociale',
+      name: 'SocialLoginButtons',
       description: 'Boutons de connexion avec Apple et Google',
       component: (
         <div className="flex items-center justify-center h-full w-full px-4">

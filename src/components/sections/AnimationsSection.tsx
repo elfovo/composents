@@ -13,7 +13,7 @@ export default function AnimationsSection() {
   const animationDemos = [
     {
       id: 'curvedloop',
-      name: 'Curved Loop',
+      name: 'CurvedLoop',
       description: 'Texte défilant avec courbe',
       component: (
         <div className="bg-black w-full h-full flex items-center justify-center">

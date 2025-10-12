@@ -2,7 +2,11 @@
 
 import { colors } from '@/lib/colors';
 import GooeyNav from '@/components/navigation/GooeyNav.jsx';
-import { SimpleButton, GradientButton, OutlineButton, CancelButton, SquareButton, SquareButtonFilled } from '@/components/buttons';
+import { 
+  SimpleButton, GradientButton, OutlineButton, CancelButton, BackButton, BackOutlineButton, IconButton,
+  NextButton, MenuButton, ToggleButton, SwitchButton,
+  SquareButton, SquareButtonFilled 
+} from '@/components/buttons';
 import { useState, useEffect, useRef } from 'react';
 
 export default function ButtonsSection() {
@@ -13,7 +17,7 @@ export default function ButtonsSection() {
   const buttonDemos = [
     {
       id: 'simple',
-      name: 'Bouton Simple',
+      name: 'SimpleButton',
       description: 'Bouton blanc moderne et minimaliste',
       component: (
         <div className="flex justify-center items-center">
@@ -25,7 +29,7 @@ export default function ButtonsSection() {
     },
     {
       id: 'gradient',
-      name: 'Bouton Gradient',
+      name: 'GradientButton',
       description: 'Bouton avec dégradé bleu',
       component: (
         <div className="flex justify-center items-center">
@@ -37,7 +41,7 @@ export default function ButtonsSection() {
     },
     {
       id: 'outline',
-      name: 'Bouton Outline',
+      name: 'OutlineButton',
       description: 'Bouton avec bordure blanche',
       component: (
         <div className="flex justify-center items-center">
@@ -49,7 +53,7 @@ export default function ButtonsSection() {
     },
     {
       id: 'cancel',
-      name: 'Bouton Cancel',
+      name: 'CancelButton',
       description: 'Bouton rond avec croix pour annuler',
       component: (
         <div className="flex justify-center items-center">
@@ -58,8 +62,38 @@ export default function ButtonsSection() {
       )
     },
     {
+      id: 'back',
+      name: 'BackButton',
+      description: 'Bouton rond avec chevron pour retour',
+      component: (
+        <div className="flex justify-center items-center">
+          <BackButton size="lg" />
+        </div>
+      )
+    },
+    {
+      id: 'backoutline',
+      name: 'BackOutlineButton',
+      description: 'Bouton outline avec texte "Retour"',
+      component: (
+        <div className="flex justify-center items-center">
+          <BackOutlineButton size="lg" variant="white" />
+        </div>
+      )
+    },
+    {
+      id: 'icon',
+      name: 'IconButton',
+      description: 'Bouton rond avec icône Instagram',
+      component: (
+        <div className="flex justify-center items-center">
+          <IconButton size="lg" icon="instagram" />
+        </div>
+      )
+    },
+    {
       id: 'square',
-      name: 'Bouton Square',
+      name: 'SquareButton',
       description: 'Bouton avec bordure blanche et bords carrés',
       component: (
         <div className="flex justify-center items-center">
@@ -71,13 +105,53 @@ export default function ButtonsSection() {
     },
     {
       id: 'squarefilled',
-      name: 'Bouton Square Filled',
+      name: 'SquareButtonFilled',
       description: 'Bouton blanc plein avec bords carrés',
       component: (
         <div className="flex justify-center items-center">
           <SquareButtonFilled size="lg" variant="white">
             Bouton Square Filled
           </SquareButtonFilled>
+        </div>
+      )
+    },
+    {
+      id: 'next',
+      name: 'NextButton',
+      description: 'Bouton rond avec chevron vers la droite',
+      component: (
+        <div className="flex justify-center items-center">
+          <NextButton size="lg" />
+        </div>
+      )
+    },
+    {
+      id: 'menu',
+      name: 'MenuButton',
+      description: 'Bouton hamburger avec 3 lignes',
+      component: (
+        <div className="flex justify-center items-center">
+          <MenuButton size="lg" />
+        </div>
+      )
+    },
+    {
+      id: 'toggle',
+      name: 'ToggleButton',
+      description: 'Bouton on/off avec état',
+      component: (
+        <div className="flex justify-center items-center">
+          <ToggleButton size="lg" />
+        </div>
+      )
+    },
+    {
+      id: 'switch',
+      name: 'SwitchButton',
+      description: 'Bouton switch iOS/Android style',
+      component: (
+        <div className="flex justify-center items-center">
+          <SwitchButton size="lg" />
         </div>
       )
     }
