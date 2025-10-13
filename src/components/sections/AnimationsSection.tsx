@@ -322,16 +322,26 @@ export default function AnimationsSection() {
       description: 'Texte avec effet de flou animé et interactif',
       component: (
         <div className="bg-black w-full h-full flex items-center justify-center p-8">
-          <div className="w-full h-full flex items-center justify-center">
+          <div className="w-full h-full flex flex-col items-center justify-center gap-4">
             <FuzzyText 
-              fontSize="clamp(2rem, 8vw, 6rem)"
+              fontSize="clamp(3.5rem, 12vw, 8rem)"
               fontWeight={900}
               color="#ffffff"
               enableHover={true}
               baseIntensity={0.18}
               hoverIntensity={0.5}
             >
-              FUZZY TEXT EFFECT
+              404
+            </FuzzyText>
+            <FuzzyText 
+              fontSize="clamp(1.5rem, 6vw, 4rem)"
+              fontWeight={700}
+              color="#ffffff"
+              enableHover={true}
+              baseIntensity={0.18}
+              hoverIntensity={0.5}
+            >
+              not found
             </FuzzyText>
           </div>
         </div>
