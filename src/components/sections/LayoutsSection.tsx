@@ -2,7 +2,7 @@
 
 import { colors } from '@/lib/colors';
 import GooeyNav from '@/components/navigation/GooeyNav.jsx';
-import { OutlineInput } from '@/components/inputs';
+import { OutlineInput, DateSelector } from '@/components/inputs';
 import { LoginForm, SignupForm, ResetPasswordForm } from '@/components/layouts';
 import { SocialLoginButtons } from '@/components/buttons';
 import { useState, useEffect, useRef } from 'react';
@@ -29,6 +29,39 @@ export default function LayoutsSection() {
           </div>
           <div className="relative">
             <OutlineInput 
+              placeholder="Tapez quelque chose..."
+              variant="white"
+              size="lg"
+              className="w-full"
+              value={inputValue}
+              onChange={(e) => setInputValue(e.target.value)}
+              onBlur={() => {
+                if (inputValue.trim() !== '') {
+                  setShowValidation(true);
+                } else {
+                  setShowValidation(false);
+                }
+              }}
+              onFocus={() => setShowValidation(false)}
+            />
+          </div>
+        </div>
+      )
+    },
+    {
+      id: 'dateselector',
+      name: 'DateSelector',
+      description: 'Composant de saisie avec style outline',
+      component: (
+        <div className="max-w-md mx-auto p-8">
+          <div className="flex items-center justify-between mb-2">
+            <label className="block text-sm font-medium text-white">Exemple</label>
+            <div className={`bg-white text-black text-xs px-1 py-1 rounded-full flex items-center justify-center shadow-lg w-5 h-5 transition-opacity duration-300 ${showValidation ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}>
+              <span className="text-xs">✓</span>
+            </div>
+          </div>
+          <div className="relative">
+            <DateSelector 
               placeholder="Tapez quelque chose..."
               variant="white"
               size="lg"
