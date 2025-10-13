@@ -33,10 +33,24 @@ export const getMenuConfig = (t: (key: TranslationKey) => string) => {
         hoverStyles: { bgColor: colors.menu.hover, textColor: colors.primary.white }
       },
       {
+        label: 'Navigation',
+        href: '#navigation',
+        ariaLabel: 'Navigation',
+        rotation: -8,
+        hoverStyles: { bgColor: colors.menu.hover, textColor: colors.primary.white }
+      },
+      {
         label: 'Animations',
         href: '#animations',
         ariaLabel: 'Animations',
         rotation: 8,
+        hoverStyles: { bgColor: colors.menu.hover, textColor: colors.primary.white }
+      },
+      {
+        label: 'Texte',
+        href: '#text-animations',
+        ariaLabel: 'Animations de Texte',
+        rotation: -8,
         hoverStyles: { bgColor: colors.menu.hover, textColor: colors.primary.white }
       }
     ],

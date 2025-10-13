@@ -4,6 +4,7 @@ import NavigationSection from '@/components/sections/NavigationSection';
 import ButtonsSection from '@/components/sections/ButtonsSection';
 import LayoutsSection from '@/components/sections/LayoutsSection';
 import AnimationsSection from '@/components/sections/AnimationsSection';
+import TextAnimationsSection from '@/components/sections/TextAnimationsSection';
 
 export default function HomePage() {
   return (
@@ -14,6 +15,7 @@ export default function HomePage() {
       <ButtonsSection />
       <LayoutsSection />
       <AnimationsSection />
+      <TextAnimationsSection />
     </div>
   );
 }
