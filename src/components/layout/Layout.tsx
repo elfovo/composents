@@ -15,8 +15,8 @@ export default function Layout({
   const { theme } = useTheme();
   const menuConfig = getMenuConfig(t);
   
-  // Couleurs adaptées au thème
-  const backgroundColor = theme === 'light' ? '#ffffff' : colors.background.main;
+  // Couleur de fond du thème sombre uniquement
+  const backgroundColor = colors.background.main;
   
   return (
     <div className="min-h-screen" style={{ backgroundColor }}>

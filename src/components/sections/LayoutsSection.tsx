@@ -1,7 +1,7 @@
 'use client';
 
 import { OutlineInput, DateSelector } from '@/components/inputs';
-import { LoginForm, SignupForm, ResetPasswordForm } from '@/components/layouts';
+import { LoginForm, GlassLoginForm, SignupForm, ResetPasswordForm } from '@/components/layouts';
 import { SocialLoginButtons } from '@/components/buttons';
 import SectionWrapper from '@/components/SectionWrapper';
 import { useState } from 'react';
@@ -87,6 +87,18 @@ export default function LayoutsSection() {
         <div className="w-full h-full flex items-center justify-center p-8">
           <div className="w-full max-w-md">
             <LoginForm />
+          </div>
+        </div>
+      )
+    },
+    {
+      id: 'glass-login',
+      name: 'GlassLoginForm',
+      description: 'Formulaire de connexion avec effet GlassSurface',
+      component: (
+        <div className="w-full h-full flex items-center justify-center p-8">
+          <div className="w-full max-w-md">
+            <GlassLoginForm />
           </div>
         </div>
       )

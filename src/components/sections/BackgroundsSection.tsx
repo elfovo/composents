@@ -2,6 +2,7 @@
 
 import { Aurora, DotGrid, Galaxy, LiquidEther, Orb, Squares, Threads } from '@/components/backgrounds';
 import SectionWrapper from '@/components/SectionWrapper';
+import GlassSurfaceDemo from '@/components/GlassSurfaceDemo';
 
 export default function BackgroundsSection() {
   const backgroundDemos = [
@@ -110,6 +111,12 @@ export default function BackgroundsSection() {
           style={{ width: '100%', height: '100%' }}
         />
       )
+    },
+    {
+      id: 'glass',
+      name: 'GlassSurface',
+      description: 'Surface de verre avec effets de distorsion et blur',
+      component: <GlassSurfaceDemo />
     }
   ];
 

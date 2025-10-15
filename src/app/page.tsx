@@ -10,7 +10,7 @@ import ThemeToggle from '@/components/ThemeToggle';
 export default function HomePage() {
   return (
     <div className="scroll-smooth">
-      <ThemeToggle />
+      {/* <ThemeToggle /> */}
       <HomeSection />
       <BackgroundsSection />
       <NavigationSection />

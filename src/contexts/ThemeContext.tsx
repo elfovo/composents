@@ -12,35 +12,26 @@ interface ThemeContextType {
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
-  const [theme, setTheme] = useState<Theme>('light');
+  const [theme, setTheme] = useState<Theme>('dark');
 
   useEffect(() => {
-    // Récupérer le thème depuis localStorage ou utiliser 'light' par défaut
-    const savedTheme = localStorage.getItem('theme') as Theme;
-    if (savedTheme) {
-      setTheme(savedTheme);
-    } else {
-      // Forcer le mode clair par défaut
-      setTheme('light');
-      localStorage.setItem('theme', 'light');
-    }
+    // Toujours utiliser le thème sombre
+    setTheme('dark');
+    localStorage.setItem('theme', 'dark');
   }, []);
 
   useEffect(() => {
-    // Appliquer le thème au document
+    // Appliquer le thème sombre au document
     const root = document.documentElement;
-    if (theme === 'dark') {
-      root.classList.add('dark');
-    } else {
-      root.classList.remove('dark');
-    }
+    root.classList.add('dark');
     
     // Sauvegarder dans localStorage
-    localStorage.setItem('theme', theme);
+    localStorage.setItem('theme', 'dark');
   }, [theme]);
 
   const toggleTheme = () => {
-    setTheme(prevTheme => prevTheme === 'dark' ? 'light' : 'dark');
+    // Ne fait rien, reste toujours en mode sombre
+    setTheme('dark');
   };
 
   return (
