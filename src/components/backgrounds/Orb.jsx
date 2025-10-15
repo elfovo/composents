@@ -120,14 +120,14 @@ export default function Orb({ hue = 0, hoverIntensity = 0.2, rotateOnHover = tru
       float r0 = mix(mix(innerRadius, 1.0, 0.4), mix(innerRadius, 1.0, 0.6), n0);
       float d0 = distance(uv, (r0 * invLen) * uv);
       float v0 = light1(1.0, 10.0, d0);
-      v0 *= smoothstep(r0 * 1.05, r0, len);
+      v0 *= smoothstep(r0 * 1.02, r0, len);
       float cl = cos(ang + iTime * 2.0) * 0.5 + 0.5;
       
       float a = iTime * -1.0;
       vec2 pos = vec2(cos(a), sin(a)) * r0;
       float d = distance(uv, pos);
-      float v1 = light2(1.5, 5.0, d);
-      v1 *= light1(1.0, 50.0, d0);
+      float v1 = light2(0.8, 5.0, d);
+      v1 *= light1(0.5, 50.0, d0);
       
       float v2 = smoothstep(1.0, mix(innerRadius, 1.0, n0 * 0.5), len);
       float v3 = smoothstep(innerRadius, mix(innerRadius, 1.0, 0.5), len);

@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect } from 'react';
 import { gsap } from 'gsap';
+import { useTheme } from '@/contexts/ThemeContext';
 
 import './BubbleMenu.css';
 
@@ -59,6 +60,7 @@ export default function BubbleMenu({
 }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [showOverlay, setShowOverlay] = useState(false);
+  const { theme } = useTheme();
 
   const overlayRef = useRef(null);
   const bubblesRef = useRef([]);
@@ -66,7 +68,7 @@ export default function BubbleMenu({
   const menuRef = useRef(null);
 
   const menuItems = items?.length ? items : DEFAULT_ITEMS;
-  const containerClassName = ['bubble-menu', useFixedPosition ? 'fixed' : 'absolute', className]
+  const containerClassName = ['bubble-menu', useFixedPosition ? 'fixed' : 'absolute', theme === 'light' ? 'light-theme' : '', className]
     .filter(Boolean)
     .join(' ');
 
@@ -206,7 +208,7 @@ export default function BubbleMenu({
       {showOverlay && (
         <div
           ref={overlayRef}
-          className={`bubble-menu-items ${useFixedPosition ? 'fixed' : 'absolute'}`}
+          className={`bubble-menu-items ${useFixedPosition ? 'fixed' : 'absolute'} ${theme === 'light' ? 'light-theme' : ''}`}
           aria-hidden={!isMenuOpen}
         >
           <ul className="pill-list" role="menu" aria-label="Menu links">

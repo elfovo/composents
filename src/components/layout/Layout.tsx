@@ -3,6 +3,7 @@
 import BubbleMenu from '@/components/navigation/BubbleMenu.jsx';
 import { getMenuConfig } from '@/config/menu';
 import { useLanguage } from '@/contexts/LanguageContext';
+import { useTheme } from '@/contexts/ThemeContext';
 import { colors } from '@/lib/colors';
 
 export default function Layout({
@@ -11,10 +12,14 @@ export default function Layout({
   children: React.ReactNode;
 }) {
   const { t } = useLanguage();
+  const { theme } = useTheme();
   const menuConfig = getMenuConfig(t);
   
+  // Couleurs adaptées au thème
+  const backgroundColor = theme === 'light' ? '#ffffff' : colors.background.main;
+  
   return (
-    <div className="min-h-screen" style={{ backgroundColor: colors.background.main }}>
+    <div className="min-h-screen" style={{ backgroundColor }}>
       {/* BubbleMenu en position fixe */}
       <div className="fixed top-4 left-4 z-50">
         <BubbleMenu
@@ -23,7 +28,7 @@ export default function Layout({
           useFixedPosition={true}
           menuBg={menuConfig.menuBg}
           menuContentColor={menuConfig.menuContentColor}
-          className="shadow-lg"
+          className=""
           onMenuClick={undefined}
           onItemClick={undefined}
           style={undefined}

@@ -25,11 +25,15 @@
   height: var(--bubble-size);
   border-radius: 50%;
   background: #fff;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
   display: inline-flex;
   align-items: center;
   justify-content: center;
   pointer-events: auto;
+}
+
+/* Effets d'ombre en mode clair */
+.bubble-menu.light-theme .bubble {
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
 }
 
 .bubble-menu .logo-bubble,
@@ -195,7 +199,6 @@
   background: var(--pill-bg);
   color: var(--pill-color);
   text-decoration: none;
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.1);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -208,6 +211,11 @@
   white-space: nowrap;
   overflow: hidden;
   height: 10px;
+}
+
+/* Effets d'ombre en mode clair pour les éléments du menu */
+.bubble-menu-items.light-theme .pill-link {
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.1);
 }
 
 @media (min-width: 900px) {

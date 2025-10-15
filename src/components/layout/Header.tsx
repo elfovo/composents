@@ -16,7 +16,7 @@ export default function Header() {
         useFixedPosition={menuConfig.useFixedPosition}
         menuBg={menuConfig.menuBg}
         menuContentColor={menuConfig.menuContentColor}
-        className="shadow-lg"
+        className=""
         onMenuClick={undefined}
         onItemClick={undefined}
         style={undefined}
