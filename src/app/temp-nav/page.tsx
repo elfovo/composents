@@ -17,7 +17,7 @@ export default function TempNavPage() {
       <div className="absolute inset-0 z-0">
         <MetaBalls
           color="#5239ff"
-          cursorBallColor="#ffffff"
+          cursorBallColor="#5239ff"
           speed={0.5}
           enableMouseInteraction={true}
           ballCount={20}

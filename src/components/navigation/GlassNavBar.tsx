@@ -35,8 +35,30 @@ const GlassNavBar: React.FC<GlassNavBarProps> = ({
   const [hoveredItem, setHoveredItem] = useState<string | null>(null);
   const [buttonMetrics, setButtonMetrics] = useState<ButtonMetric[]>([]);
   const [isMoving, setIsMoving] = useState(false);
+  const [isDesktop, setIsDesktop] = useState(false);
   const buttonRefs = useRef<(HTMLButtonElement | null)[]>([]);
   const wrapperRef = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    if (typeof window === 'undefined') {
+      return;
+    }
+
+    const mediaQuery = window.matchMedia('(min-width: 1024px)');
+    const handleChange = (event: MediaQueryListEvent) => {
+      setIsDesktop(event.matches);
+    };
+
+    setIsDesktop(mediaQuery.matches);
+
+    if (typeof mediaQuery.addEventListener === 'function') {
+      mediaQuery.addEventListener('change', handleChange);
+      return () => mediaQuery.removeEventListener('change', handleChange);
+    }
+
+    mediaQuery.addListener(handleChange);
+    return () => mediaQuery.removeListener(handleChange);
+  }, []);
 
   // Mesurer les positions réelles des boutons
   useEffect(() => {
@@ -122,7 +144,7 @@ const GlassNavBar: React.FC<GlassNavBarProps> = ({
 
       window.removeEventListener('resize', scheduleMeasure);
     };
-  }, []);
+  }, [isDesktop]);
 
   // Détecter le mouvement du focus ring
   useEffect(() => {
@@ -182,10 +204,29 @@ const GlassNavBar: React.FC<GlassNavBarProps> = ({
   const focusWidth = targetMetric.width || FALLBACK_METRIC.width;
   const focusHeight = targetMetric.height || FALLBACK_METRIC.height;
 
+  const wrapperClasses = isDesktop
+    ? 'fixed top-6 left-1/2 z-50 w-full max-w-5xl -translate-x-1/2 px-6 py-3'
+    : 'relative mx-auto w-full max-w-md px-3 py-2 sm:max-w-lg sm:px-4';
+
+  const surfaceHeight = isDesktop ? 'clamp(56px, 6vw, 72px)' : 'clamp(52px, 13vw, 64px)';
+  const surfaceRadius = isDesktop ? 50 : 50;
+
+  const buttonLayoutClasses = isDesktop
+    ? 'flex-1 flex-row items-center justify-center gap-3 px-4 py-3 text-sm font-medium leading-tight transition-colors duration-500 ease-out lg:text-base'
+    : 'flex-1 flex-col items-center justify-center gap-1 px-1 py-1 text-[0.7rem] font-medium leading-tight transition-colors duration-500 ease-out sm:px-2 sm:text-xs';
+
+  const labelClasses = isDesktop
+    ? 'text-sm font-medium transition-colors duration-700 ease-in-out lg:text-base'
+    : 'text-xs font-medium transition-colors duration-1000 ease-in-out sm:text-sm';
+
+  const iconWrapperClasses = isDesktop
+    ? 'transition-colors duration-700 ease-in-out'
+    : 'mb-0.5 transition-colors duration-1000 ease-in-out';
+
   return (
     <div
       ref={wrapperRef}
-      className={`relative mx-auto w-full max-w-md px-3 py-2 sm:max-w-lg sm:px-4 ${className}`}
+      className={`${wrapperClasses} ${className}`}
     >
       {/* Focus ring mobile qui se déplace */}
       <div
@@ -223,8 +264,8 @@ const GlassNavBar: React.FC<GlassNavBarProps> = ({
       {/* Menu principal */}
       <GlassSurface
         width="100%"
-        height="clamp(52px, 13vw, 64px)"
-        borderRadius={50}
+        height={surfaceHeight}
+        borderRadius={surfaceRadius}
         borderWidth={0.1}
         brightness={50}
         opacity={0.9}
@@ -248,10 +289,13 @@ const GlassNavBar: React.FC<GlassNavBarProps> = ({
                 key={item.id}
                 ref={(el) => (buttonRefs.current[index] = el)}
                 type="button"
-                className={`relative z-10 flex flex-1 flex-col items-center justify-center gap-1 px-1 py-1 text-[0.7rem] font-medium leading-tight transition-colors duration-500 ease-out sm:px-2 sm:text-xs
+                className={`relative z-10 flex ${buttonLayoutClasses}
                   ${isActive || isHovered ? 'text-blue-400' : 'text-white'}
                 `}
-                style={{ minWidth: '56px', minHeight: '48px' }}
+                style={{
+                  minWidth: isDesktop ? '140px' : '56px',
+                  minHeight: isDesktop ? '60px' : '48px'
+                }}
                 onClick={() => onItemClick?.(item.id as NavItemId)}
                 onMouseEnter={() => setHoveredItem(item.id)}
                 onMouseLeave={() => setHoveredItem(null)}
@@ -262,10 +306,10 @@ const GlassNavBar: React.FC<GlassNavBarProps> = ({
                 onTouchCancel={() => setHoveredItem(null)}
                 aria-pressed={isActive}
               >
-                <div className={`mb-0.5 transition-colors duration-1000 ease-in-out ${isActive || isHovered ? 'text-blue-400' : 'text-white'}`}>
+                <div className={`${iconWrapperClasses} ${isActive || isHovered ? 'text-blue-400' : 'text-white'}`}>
                   {item.icon}
                 </div>
-                <span className={`text-xs font-medium transition-colors duration-1000 ease-in-out ${isActive || isHovered ? 'text-blue-400' : 'text-white'}`}>
+                <span className={`${labelClasses} ${isActive || isHovered ? 'text-blue-400' : 'text-white'}`}>
                   {item.label}
                 </span>
               </button>
