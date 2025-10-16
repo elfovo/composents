@@ -28,8 +28,8 @@ export default function TempNavPage() {
         />
       </div>
 
-      {/* Contenu principal - Seulement le menu */}
-      <div className="relative z-10 min-h-screen flex items-center justify-center p-4">
+      {/* Contenu principal - Menu en bas */}
+      <div className="relative z-10 min-h-screen flex items-end justify-center p-4 pb-8">
         <GlassNavBar 
           activeItem={activeTab}
           onItemClick={handleTabChange}

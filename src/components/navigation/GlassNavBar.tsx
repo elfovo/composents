@@ -131,7 +131,7 @@ const GlassNavBar: React.FC<GlassNavBarProps> = ({
     }
 
     setIsMoving(true);
-    const timer = window.setTimeout(() => setIsMoving(false), 600);
+    const timer = window.setTimeout(() => setIsMoving(false), 400);
     return () => window.clearTimeout(timer);
   }, [hoveredItem, activeItem]);
 
