@@ -195,7 +195,7 @@ const GlassNavBar: React.FC<GlassNavBarProps> = ({
           top: `${targetMetric.centerY}px`,
           width: `${focusWidth}px`,
           height: `${focusHeight}px`,
-          transform: `translate(-50%, -50%) scale(${isMoving ? 1.05 : 1})`,
+          transform: `translate(-50%, -50%) scale(${isMoving ? 1.25 : 1})`,
           transformOrigin: 'center',
           zIndex: 1,
           pointerEvents: 'none'
