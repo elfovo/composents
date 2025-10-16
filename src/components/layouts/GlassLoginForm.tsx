@@ -54,7 +54,7 @@ export default function GlassLoginForm({
 
   return (
     <GlassSurface
-      {...({ width: "100%", height: "100%" } as any)}
+        {...({ width: "100%", height: "100%" } as unknown)}
       borderRadius={32}
       borderWidth={0.1}
       brightness={50}
@@ -230,7 +230,7 @@ export default function GlassLoginForm({
       
       <div className="text-center mt-4 sm:mt-6">
         <a href="#" className="text-white opacity-70 hover:text-white hover:opacity-100 transition-all font-medium">
-          Pas de compte ? S'inscrire
+          Pas de compte ? S&apos;inscrire
         </a>
       </div>
       </div>

@@ -66,7 +66,7 @@ export default function GlassResetPasswordForm({
 
   return (
     <GlassSurface
-      {...({ width: "100%", height: "100%" } as any)}
+        {...({ width: "100%", height: "100%" } as unknown)}
       borderRadius={32}
       borderWidth={0.1}
       brightness={50}
