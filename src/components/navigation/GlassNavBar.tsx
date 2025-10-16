@@ -195,7 +195,7 @@ const GlassNavBar: React.FC<GlassNavBarProps> = ({
           top: `${targetMetric.centerY}px`,
           width: `${focusWidth}px`,
           height: `${focusHeight}px`,
-          transform: `translate(-50%, -50%) scale(${isMoving ? 1.25 : 1})`,
+          transform: `translate(-50%, -50%) scale(${isMoving ? 1.35 : 1})`,
           transformOrigin: 'center',
           zIndex: 1,
           pointerEvents: 'none'
@@ -204,7 +204,7 @@ const GlassNavBar: React.FC<GlassNavBarProps> = ({
         <GlassSurface
           width={focusWidth}
           height={focusHeight}
-          borderRadius={20}
+          borderRadius={50}
           borderWidth={0}
           brightness={50}
           opacity={0.93}
@@ -212,10 +212,10 @@ const GlassNavBar: React.FC<GlassNavBarProps> = ({
           displace={0}
           backgroundOpacity={0}
           saturation={1}
-          distortionScale={40}
+          distortionScale={0}
           redOffset={0}
-          greenOffset={10}
-          blueOffset={20}
+          greenOffset={0}
+          blueOffset={0}
           className="w-full h-full"
         />
       </div>
@@ -224,7 +224,7 @@ const GlassNavBar: React.FC<GlassNavBarProps> = ({
       <GlassSurface
         width="100%"
         height="clamp(52px, 13vw, 64px)"
-        borderRadius={28}
+        borderRadius={50}
         borderWidth={0.1}
         brightness={50}
         opacity={0.9}
@@ -238,7 +238,7 @@ const GlassNavBar: React.FC<GlassNavBarProps> = ({
         blueOffset={0}
         className="w-full h-full"
       >
-        <div className="flex items-center w-full h-full gap-1 sm:gap-2">
+        <div className="flex items-center w-full h-full">
           {items.map((item, index) => {
             const isActive = item.id === activeItem;
             const isHovered = item.id === hoveredItem;
@@ -248,7 +248,7 @@ const GlassNavBar: React.FC<GlassNavBarProps> = ({
                 key={item.id}
                 ref={(el) => (buttonRefs.current[index] = el)}
                 type="button"
-                className={`relative z-10 flex flex-1 flex-col items-center justify-center gap-1 rounded-2xl px-1 py-1 text-[0.7rem] font-medium leading-tight transition-colors duration-500 ease-out sm:px-2 sm:text-xs
+                className={`relative z-10 flex flex-1 flex-col items-center justify-center gap-1 px-1 py-1 text-[0.7rem] font-medium leading-tight transition-colors duration-500 ease-out sm:px-2 sm:text-xs
                   ${isActive || isHovered ? 'text-blue-400' : 'text-white'}
                 `}
                 style={{ minWidth: '56px', minHeight: '48px' }}
