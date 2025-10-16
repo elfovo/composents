@@ -3,20 +3,29 @@ import { OutlineInput } from '@/components/inputs';
 import { GlassButton } from '@/components/buttons';
 import GlassSurface from '@/components/GlassSurface';
 
-interface GlassLoginFormProps {
-  onSubmit?: (data: { email: string; password: string }) => void;
+interface GlassSignupFormProps {
+  onSubmit?: (data: { 
+    email: string; 
+    password: string; 
+  }) => void;
   className?: string;
 }
 
-export default function GlassLoginForm({
+export default function GlassSignupForm({
   onSubmit,
   className = ''
-}: GlassLoginFormProps) {
+}: GlassSignupFormProps) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
-  const [errors, setErrors] = useState<{ email?: string; password?: string }>({});
-  const [showValidation, setShowValidation] = useState<{ email: boolean; password: boolean }>({
+  const [errors, setErrors] = useState<{ 
+    email?: string; 
+    password?: string; 
+  }>({});
+  const [showValidation, setShowValidation] = useState<{ 
+    email: boolean; 
+    password: boolean; 
+  }>({
     email: false,
     password: false
   });
@@ -26,7 +35,10 @@ export default function GlassLoginForm({
     e.preventDefault();
     
     // Validation simple
-    const newErrors: { email?: string; password?: string } = {};
+    const newErrors: { 
+      email?: string; 
+      password?: string; 
+    } = {};
     
     if (!email) {
       newErrors.email = 'Email requis';
@@ -83,11 +95,12 @@ export default function GlassLoginForm({
         padding: 0 
       }}>
       <div className="text-center mb-6 sm:mb-8">
-        <h2 className="text-xl sm:text-2xl font-bold text-white mb-2">Connexion</h2>
-        <p className="text-sm sm:text-base text-white opacity-70">Connectez-vous à votre compte</p>
+        <h2 className="text-xl sm:text-2xl font-bold text-white mb-2">Créer un compte</h2>
+        <p className="text-sm sm:text-base text-white opacity-70">Rejoignez-nous dès aujourd'hui</p>
       </div>
       
       <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-6">
+        {/* Email */}
         <div>
           <div className="flex items-center justify-between mb-2">
             <label htmlFor="email" className="block text-sm font-medium text-white">
@@ -138,6 +151,7 @@ export default function GlassLoginForm({
           </div>
         </div>
         
+        {/* Mot de passe */}
         <div>
           <div className="flex items-center justify-between mb-2">
             <label htmlFor="password" className="block text-sm font-medium text-white">
@@ -175,7 +189,7 @@ export default function GlassLoginForm({
                 }}
                 variant="white"
                 size="lg"
-                autoComplete="current-password"
+                autoComplete="new-password"
                 className="w-full pr-12"
               />
               <button
@@ -206,12 +220,6 @@ export default function GlassLoginForm({
           </div>
         </div>
         
-        <div className="flex items-center justify-end">
-          <a href="#" className="text-white opacity-70 hover:text-white hover:opacity-100 transition-all">
-            Mot de passe oublié ?
-          </a>
-        </div>
-        
         <GlassButton
           size="lg"
           className="w-full"
@@ -220,17 +228,17 @@ export default function GlassLoginForm({
           {isLoading ? (
             <div className="flex items-center justify-center">
               <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin mr-2"></div>
-              Connexion...
+              Création...
             </div>
           ) : (
-            'Se connecter'
+            'Créer mon compte'
           )}
         </GlassButton>
       </form>
       
       <div className="text-center mt-4 sm:mt-6">
         <a href="#" className="text-white opacity-70 hover:text-white hover:opacity-100 transition-all font-medium">
-          Pas de compte ? S'inscrire
+          Déjà un compte ? Se connecter
         </a>
       </div>
       </div>

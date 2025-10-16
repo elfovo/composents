@@ -1,10 +1,9 @@
 'use client';
 
-import { OutlineInput, DateSelector } from '@/components/inputs';
-import { LoginForm, GlassLoginForm, SignupForm, ResetPasswordForm } from '@/components/layouts';
-import { SocialLoginButtons } from '@/components/buttons';
-import SectionWrapper from '@/components/SectionWrapper';
 import { useState } from 'react';
+import SectionWrapper from '@/components/SectionWrapper';
+import { OutlineInput, DateSelector } from '@/components/inputs';
+import { LoginForm, GlassLoginForm, SignupForm, GlassSignupForm, ResetPasswordForm, GlassResetPasswordForm } from '@/components/layouts';
 
 export default function LayoutsSection() {
   const [inputValue, setInputValue] = useState('');
@@ -16,20 +15,20 @@ export default function LayoutsSection() {
     {
       id: 'forms',
       name: 'OutlineInput',
-      description: 'Composant de saisie avec style outline',
+      description: 'Champ de saisie avec bordure animée',
       component: (
         <div className="max-w-md mx-auto p-8">
           <div className="flex items-center justify-between mb-2">
-            <label className="block text-sm font-medium text-white">Exemple</label>
+            <label className="block text-sm font-medium text-white">Nom</label>
             <div className={`bg-white text-black text-xs px-1 py-1 rounded-full flex items-center justify-center shadow-lg w-5 h-5 transition-opacity duration-300 ${showValidation ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}>
               <span className="text-xs">✓</span>
             </div>
           </div>
           <div className="relative">
             <OutlineInput 
-              placeholder="Tapez quelque chose..."
-              variant="white"
-              size="lg"
+              placeholder="Votre nom..." 
+              variant="white" 
+              size="lg" 
               className="w-full"
               value={inputValue}
               onChange={(e) => setInputValue(e.target.value)}
@@ -116,6 +115,18 @@ export default function LayoutsSection() {
       )
     },
     {
+      id: 'glass-signup',
+      name: 'GlassSignupForm',
+      description: 'Formulaire d\'inscription avec effet GlassSurface',
+      component: (
+        <div className="w-full h-full flex items-center justify-center p-8">
+          <div className="w-full max-w-md">
+            <GlassSignupForm />
+          </div>
+        </div>
+      )
+    },
+    {
       id: 'reset',
       name: 'ResetPasswordForm',
       description: 'Formulaire de réinitialisation de mot de passe',
@@ -128,16 +139,13 @@ export default function LayoutsSection() {
       )
     },
     {
-      id: 'social',
-      name: 'SocialLoginButtons',
-      description: 'Boutons de connexion sociale',
+      id: 'glass-reset',
+      name: 'GlassResetPasswordForm',
+      description: 'Formulaire de réinitialisation avec effet GlassSurface',
       component: (
         <div className="w-full h-full flex items-center justify-center p-8">
           <div className="w-full max-w-md">
-            <SocialLoginButtons 
-              onAppleLogin={() => console.log('Apple login')}
-              onGoogleLogin={() => console.log('Google login')}
-            />
+            <GlassResetPasswordForm />
           </div>
         </div>
       )
@@ -147,10 +155,9 @@ export default function LayoutsSection() {
   return (
     <SectionWrapper
       id="layouts"
-      title="Layouts"
-      subtitle="Collection de layouts et formulaires modernes"
+      title="Layouts & Formulaires"
+      subtitle="Composants de mise en page et formulaires interactifs"
       demos={layoutDemos}
-      initialActiveDemo="forms"
     />
   );
 }
