@@ -280,7 +280,20 @@ const GlassNavBar: React.FC<GlassNavBarProps> = ({
         className="w-full h-full"
       >
         <div className="flex items-center w-full h-full">
-          {items.map((item, index) => {
+          {/* Logo et nom pour desktop */}
+          {isDesktop && (
+            <div className="flex items-center gap-3 px-4">
+              <img src="/logo-white.svg" alt="Logo" className="w-8 h-8" />
+              <span className="text-white font-semibold text-lg">MonDev</span>
+            </div>
+          )}
+          
+          {/* Spacer pour pousser les éléments vers la droite */}
+          {isDesktop && <div className="flex-1" />}
+          
+          {/* Éléments de navigation */}
+          <div className={`flex ${isDesktop ? 'gap-2' : 'w-full'}`}>
+            {items.map((item, index) => {
             const isActive = item.id === activeItem;
             const isHovered = item.id === hoveredItem;
             
@@ -315,6 +328,7 @@ const GlassNavBar: React.FC<GlassNavBarProps> = ({
               </button>
             );
           })}
+          </div>
         </div>
       </GlassSurface>
     </div>
