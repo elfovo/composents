@@ -10,3 +10,4 @@ export { default as ModernMenuNav } from './ModernMenuNav.tsx';
 export { default as ModernButtonNav } from './ModernButtonNav.tsx';
 export { default as ModernLayoutNav } from './ModernLayoutNav.tsx';
 export { default as ModernAnimationNav } from './ModernAnimationNav.tsx';
+export { default as GlassNavBar } from './GlassNavBar.tsx';
