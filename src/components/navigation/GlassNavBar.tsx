@@ -11,11 +11,21 @@ interface GlassNavBarProps {
 
 type ButtonMetric = {
   left: number;
+  top: number;
   width: number;
   height: number;
+  centerX: number;
+  centerY: number;
 };
 
-const FALLBACK_METRIC: ButtonMetric = { left: 0, width: 72, height: 48 };
+const FALLBACK_METRIC: ButtonMetric = {
+  left: 0,
+  top: 0,
+  width: 72,
+  height: 48,
+  centerX: 36,
+  centerY: 24
+};
 
 const GlassNavBar: React.FC<GlassNavBarProps> = ({
   activeItem = 'exchanges',
@@ -24,7 +34,6 @@ const GlassNavBar: React.FC<GlassNavBarProps> = ({
 }) => {
   const [hoveredItem, setHoveredItem] = useState<string | null>(null);
   const [buttonMetrics, setButtonMetrics] = useState<ButtonMetric[]>([]);
-  const [contentOffset, setContentOffset] = useState({ x: 0, y: 0 });
   const [isMoving, setIsMoving] = useState(false);
   const buttonRefs = useRef<(HTMLButtonElement | null)[]>([]);
   const wrapperRef = useRef<HTMLDivElement | null>(null);
@@ -48,26 +57,23 @@ const GlassNavBar: React.FC<GlassNavBarProps> = ({
         }
 
         const rect = button.getBoundingClientRect();
-        const contentRect = button.parentElement?.parentElement?.getBoundingClientRect();
+        const left = wrapperRect ? rect.left - wrapperRect.left : FALLBACK_METRIC.left;
+        const top = wrapperRect ? rect.top - wrapperRect.top : FALLBACK_METRIC.top;
+        const width = rect.width || FALLBACK_METRIC.width;
+        const height = rect.height || FALLBACK_METRIC.height;
 
         return {
-          left: contentRect ? rect.left - contentRect.left : 0,
-          width: rect.width || FALLBACK_METRIC.width,
-          height: rect.height || FALLBACK_METRIC.height
+          left,
+          top,
+          width,
+          height,
+          centerX: left + width / 2,
+          centerY: top + height / 2
         };
       });
 
       setButtonMetrics(metrics);
 
-      if (wrapperRect) {
-        const contentRect = buttons[0]?.parentElement?.parentElement?.getBoundingClientRect();
-        if (contentRect) {
-          setContentOffset({
-            x: contentRect.left - wrapperRect.left,
-            y: contentRect.top - wrapperRect.top
-          });
-        }
-      }
     };
 
     let animationFrame = 0;
@@ -175,8 +181,6 @@ const GlassNavBar: React.FC<GlassNavBarProps> = ({
 
   const focusWidth = targetMetric.width || FALLBACK_METRIC.width;
   const focusHeight = targetMetric.height || FALLBACK_METRIC.height;
-  const offsetX = Number.isFinite(contentOffset.x) ? contentOffset.x : 0;
-  const offsetY = Number.isFinite(contentOffset.y) ? contentOffset.y : 0;
 
   return (
     <div
@@ -187,11 +191,11 @@ const GlassNavBar: React.FC<GlassNavBarProps> = ({
       <div
         className="absolute transition-all duration-700 ease-in-out"
         style={{
-          left: `${offsetX}px`,
-          top: `${offsetY}px`,
+          left: `${targetMetric.centerX}px`,
+          top: `${targetMetric.centerY}px`,
           width: `${focusWidth}px`,
           height: `${focusHeight}px`,
-          transform: `translate3d(${targetMetric.left}px, 0, 0) scale(${isMoving ? 1.05 : 1})`,
+          transform: `translate(-50%, -50%) scale(${isMoving ? 1.05 : 1})`,
           transformOrigin: 'center',
           zIndex: 1,
           pointerEvents: 'none'
