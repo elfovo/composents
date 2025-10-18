@@ -39,6 +39,8 @@ const GlassSurface = ({
   const [isClient, setIsClient] = useState(false);
   const [advancedFilterSupported, setAdvancedFilterSupported] = useState(false);
   const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
+  const [supportDiagnostics, setSupportDiagnostics] = useState(null);
+  const [renderMode, setRenderMode] = useState('unknown');
 
   const generateDisplacementMap = useCallback(
     (actualWidth, actualHeight) => {
@@ -108,9 +110,9 @@ const GlassSurface = ({
     });
   }, [updateDisplacementMap]);
 
-  const supportsSVGFilters = useCallback(() => {
-    if (typeof window === 'undefined' || typeof navigator === 'undefined') {
-      return false;
+  const evaluateBackdropSupport = useCallback(() => {
+    if (typeof window === 'undefined' || typeof document === 'undefined') {
+      return { backdrop: false, url: false };
     }
 
     const testElement = document.createElement('div');
@@ -123,36 +125,90 @@ const GlassSurface = ({
           : null;
 
     if (!backdropProperty) {
-      return false;
+      return { backdrop: false, url: false };
     }
+
+    const cssPropertyName = backdropProperty === 'backdropFilter' ? 'backdrop-filter' : '-webkit-backdrop-filter';
+
+    let supportsBackdrop = false;
+    let supportsUrl = false;
 
     try {
-      style[backdropProperty] = `url(#${filterId}) saturate(1)`;
+      style[backdropProperty] = 'blur(0)';
+      supportsBackdrop = typeof style[backdropProperty] === 'string' && style[backdropProperty] !== '';
     } catch (_error) {
-      return false;
+      supportsBackdrop = false;
     }
 
-    const hasUrlSupport =
-      typeof style[backdropProperty] === 'string' && style[backdropProperty].includes('url(');
+    if (document.body) {
+      style.position = 'fixed';
+      style.top = '-9999px';
+      style.left = '-9999px';
+      document.body.appendChild(testElement);
 
-    if (!hasUrlSupport) {
-      return false;
-    }
-
-    if (typeof CSS !== 'undefined' && typeof CSS.supports === 'function') {
-      const filterUrlSupported = CSS.supports('filter', `url(#${filterId})`);
-      if (!filterUrlSupported) {
-        return false;
+      try {
+        style[backdropProperty] = `url(#${filterId}) saturate(1)`;
+        const computed = window.getComputedStyle(testElement).getPropertyValue(cssPropertyName);
+        supportsUrl = typeof computed === 'string' && computed.includes('url(');
+      } catch (_error) {
+        supportsUrl = false;
+      } finally {
+        document.body.removeChild(testElement);
       }
     }
 
-    return true;
+    if (typeof CSS !== 'undefined' && typeof CSS.supports === 'function') {
+      const supportsBlur =
+        CSS.supports(cssPropertyName, 'blur(0)') || CSS.supports('backdrop-filter', 'blur(0)');
+      supportsBackdrop = supportsBackdrop || supportsBlur;
+
+      const urlValue = `url(#${filterId}) saturate(1)`;
+      const supportsUrlValue =
+        CSS.supports(cssPropertyName, urlValue) || CSS.supports('backdrop-filter', urlValue);
+      supportsUrl = supportsUrl || supportsUrlValue;
+    }
+
+    return { backdrop: supportsBackdrop, url: supportsUrl };
   }, [filterId]);
 
   useEffect(() => {
     setIsClient(true);
-    setAdvancedFilterSupported(supportsSVGFilters());
-  }, [supportsSVGFilters]);
+    const support = evaluateBackdropSupport();
+
+    let mode = 'basic';
+    if (support.backdrop && support.url) {
+      mode = 'advanced';
+    } else if (support.backdrop) {
+      mode = 'hybrid';
+    }
+
+    setRenderMode(mode);
+    setAdvancedFilterSupported(mode === 'advanced');
+
+    if (typeof window !== 'undefined') {
+      const debugInfo = {
+        ...support,
+        userAgent: typeof navigator !== 'undefined' ? navigator.userAgent : 'unknown',
+        platform: typeof navigator !== 'undefined' ? navigator.platform : 'unknown',
+        viewport: { width: window.innerWidth, height: window.innerHeight },
+        devicePixelRatio: window.devicePixelRatio,
+        prefersReducedMotion:
+          typeof window.matchMedia === 'function'
+            ? window.matchMedia('(prefers-reduced-motion: reduce)').matches
+            : undefined,
+        screenOrientation:
+          typeof window.screen !== 'undefined' && window.screen.orientation
+            ? window.screen.orientation.type
+            : undefined
+      };
+
+      const debugInfoWithMode = { ...debugInfo, mode };
+      setSupportDiagnostics(debugInfoWithMode);
+      console.info('[GlassSurface] support diagnostics', debugInfoWithMode);
+    } else {
+      setSupportDiagnostics({ ...support, mode });
+    }
+  }, [evaluateBackdropSupport]);
 
   useEffect(() => {
     scheduleMapUpdate();
@@ -221,8 +277,9 @@ const GlassSurface = ({
     };
   }, []);
 
-  const showFallbackVisual =
-    isClient && !advancedFilterSupported && dimensions.width > 0 && dimensions.height > 0;
+  const hasDimensions = dimensions.width > 0 && dimensions.height > 0;
+  const showFallbackVisual = isClient && renderMode === 'basic' && hasDimensions;
+  const showHybridWebGL = isClient && renderMode === 'hybrid' && hasDimensions;
 
   const containerStyle = {
     ...style,
@@ -234,13 +291,38 @@ const GlassSurface = ({
     '--filter-id': `url(#${filterId})`
   };
 
+  const supportAttributes =
+    supportDiagnostics !== null
+      ? {
+          ...(supportDiagnostics.mode ? { 'data-glass-mode': supportDiagnostics.mode } : {}),
+          'data-glass-backdrop': String(!!supportDiagnostics.backdrop),
+          'data-glass-url': String(!!supportDiagnostics.url),
+          ...(supportDiagnostics.viewport
+            ? {
+                'data-glass-viewport': `${supportDiagnostics.viewport.width}x${supportDiagnostics.viewport.height}`
+              }
+            : {}),
+          ...(typeof supportDiagnostics.devicePixelRatio === 'number'
+            ? { 'data-glass-dpr': String(supportDiagnostics.devicePixelRatio) }
+            : {})
+        }
+      : renderMode !== 'unknown'
+        ? { 'data-glass-mode': renderMode }
+        : {};
+
+  const modeClassName =
+    renderMode === 'advanced'
+      ? 'glass-surface--svg'
+      : renderMode === 'hybrid'
+        ? 'glass-surface--fallback glass-surface--hybrid'
+        : 'glass-surface--fallback';
+
   return (
     <div
       ref={containerRef}
-      className={`glass-surface ${
-        isClient && advancedFilterSupported ? 'glass-surface--svg' : 'glass-surface--fallback'
-      } ${className}`}
+      className={`glass-surface ${modeClassName} ${className}`}
       style={containerStyle}
+      {...supportAttributes}
     >
       <svg className="glass-surface__filter" xmlns="http://www.w3.org/2000/svg">
         <defs>
@@ -313,6 +395,25 @@ const GlassSurface = ({
             filter={`url(#${filterId})`}
           />
         </svg>
+      )}
+
+      {showHybridWebGL && (
+        <Suspense fallback={<div className="glass-surface__webgl-fallback" aria-hidden="true" />}>
+          <GlassSurfaceWebGL
+            containerRef={containerRef}
+            width={dimensions.width}
+            height={dimensions.height}
+            borderRadius={borderRadius}
+            brightness={brightness}
+            opacity={opacity}
+            saturation={saturation}
+            distortionScale={distortionScale}
+            redOffset={redOffset}
+            greenOffset={greenOffset}
+            blueOffset={blueOffset}
+            backgroundOpacity={backgroundOpacity}
+          />
+        </Suspense>
       )}
 
       <div className="glass-surface__content">{children}</div>
