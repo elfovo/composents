@@ -11,9 +11,26 @@ const Dock = lazy(() => import('@/components/navigation/Dock.jsx'));
 const GlassIcons = lazy(() => import('@/components/navigation/GlassIcons.jsx'));
 const AnimatedList = lazy(() => import('@/components/navigation/AnimatedList.jsx'));
 const GooeyNav = lazy(() => import('@/components/navigation/GooeyNav.jsx'));
+const GlassNavBar = lazy(() => import('@/components/navigation/GlassNavBar'));
 
 export default function NavigationSection() {
   const navigationDemos = [
+    {
+      id: 'glass-nav',
+      name: 'GlassNavBar',
+      description: 'Barre de navigation avec effet de verre et animations fluides',
+      component: (
+        <div className="relative w-full h-32 bg-gradient-to-br from-purple-900 via-blue-900 to-indigo-900 rounded-lg overflow-hidden">
+          <Suspense fallback={<div className="text-white">Chargement...</div>}>
+            <GlassNavBar 
+              activeItem="exchanges"
+              onItemClick={(item) => console.log(`Navigation vers: ${item}`)}
+              className="absolute top-4 left-1/2 transform -translate-x-1/2"
+            />
+          </Suspense>
+        </div>
+      )
+    },
     {
       id: 'bubble',
       name: 'BubbleMenu',
@@ -335,7 +352,7 @@ export default function NavigationSection() {
       title="Navigation"
       subtitle="Collection de composants de navigation et menus interactifs"
       demos={navigationDemos}
-      initialActiveDemo="bubble"
+      initialActiveDemo="glass-nav"
     />
   );
 }

@@ -34,10 +34,17 @@ const GlassNavBar: React.FC<GlassNavBarProps> = ({
 }) => {
   const [hoveredItem, setHoveredItem] = useState<string | null>(null);
   const [buttonMetrics, setButtonMetrics] = useState<ButtonMetric[]>([]);
-  const [isMoving, setIsMoving] = useState(false);
+  const [isFocusExpanded, setIsFocusExpanded] = useState(false);
+  const [blockedItem, setBlockedItem] = useState<NavItemId | null>(null);
   const [isDesktop, setIsDesktop] = useState(false);
   const buttonRefs = useRef<(HTMLButtonElement | null)[]>([]);
   const wrapperRef = useRef<HTMLDivElement | null>(null);
+  const navItemsRef = useRef<HTMLDivElement | null>(null);
+
+  const collapseFocus = () => {
+    setHoveredItem(null);
+    setIsFocusExpanded(false);
+  };
 
   useEffect(() => {
     if (typeof window === 'undefined') {
@@ -146,16 +153,31 @@ const GlassNavBar: React.FC<GlassNavBarProps> = ({
     };
   }, [isDesktop]);
 
-  // Détecter le mouvement du focus ring
-  useEffect(() => {
-    if (typeof window === 'undefined') {
+  const handlePointerEnter = (itemId: NavItemId) => {
+    if (blockedItem === itemId) {
       return;
     }
+    setBlockedItem(null);
+    setHoveredItem(itemId);
+    setIsFocusExpanded(true);
+  };
 
-    setIsMoving(true);
-    const timer = window.setTimeout(() => setIsMoving(false), 400);
-    return () => window.clearTimeout(timer);
-  }, [hoveredItem, activeItem]);
+  const handleClick = (itemId: NavItemId) => {
+    onItemClick?.(itemId);
+    setBlockedItem(itemId);
+    collapseFocus();
+  };
+
+  const handlePointerLeave = (
+    event?: React.MouseEvent<HTMLButtonElement> | React.FocusEvent<HTMLButtonElement>
+  ) => {
+    const nextTarget = (event?.relatedTarget as Node | null) ?? null;
+    if (nextTarget && wrapperRef.current?.contains(nextTarget)) {
+      return;
+    }
+    collapseFocus();
+    setBlockedItem(null);
+  };
 
   const items = [
     { 
@@ -196,6 +218,72 @@ const GlassNavBar: React.FC<GlassNavBarProps> = ({
     },
   ];
 
+  const handleWrapperMouseMove = (event: React.MouseEvent<HTMLDivElement>) => {
+    if (!wrapperRef.current || buttonMetrics.length === 0) {
+      return;
+    }
+
+    if (navItemsRef.current) {
+      const navRect = navItemsRef.current.getBoundingClientRect();
+      const margin = 6;
+      const pointerXAbs = event.clientX;
+      const pointerYAbs = event.clientY;
+      const insideNavArea =
+        pointerXAbs >= navRect.left - margin &&
+        pointerXAbs <= navRect.right + margin &&
+        pointerYAbs >= navRect.top - margin &&
+        pointerYAbs <= navRect.bottom + margin;
+
+      if (!insideNavArea) {
+        collapseFocus();
+        return;
+      }
+    }
+
+    const wrapperRect = wrapperRef.current.getBoundingClientRect();
+    const pointerX = event.clientX - wrapperRect.left;
+    const pointerY = event.clientY - wrapperRect.top;
+
+    let closestIndex = -1;
+    let shortestDistance = Number.POSITIVE_INFINITY;
+
+    buttonMetrics.forEach((metric, index) => {
+      const dx = pointerX - metric.centerX;
+      const dy = pointerY - metric.centerY;
+      const distance = Math.hypot(dx, dy);
+
+      if (distance < shortestDistance) {
+        shortestDistance = distance;
+        closestIndex = index;
+      }
+    });
+
+    if (closestIndex < 0) {
+      return;
+    }
+
+    const nextItem = items[closestIndex]?.id as NavItemId | undefined;
+    if (!nextItem) {
+      return;
+    }
+
+    if (blockedItem === nextItem) {
+      collapseFocus();
+      return;
+    }
+
+    if (hoveredItem !== nextItem) {
+      setHoveredItem(nextItem);
+    }
+    setBlockedItem(null);
+    setIsFocusExpanded(true);
+  };
+
+  const handleWrapperMouseLeave = () => {
+    collapseFocus();
+    setBlockedItem(null);
+  };
+
   const targetItemId: NavItemId | null = (hoveredItem as NavItemId | null) || activeItem;
   const targetIndex = items.findIndex((item) => item.id === targetItemId);
   const targetMetric =
@@ -227,6 +315,8 @@ const GlassNavBar: React.FC<GlassNavBarProps> = ({
     <div
       ref={wrapperRef}
       className={`${wrapperClasses} ${className}`}
+      onMouseMove={handleWrapperMouseMove}
+      onMouseLeave={handleWrapperMouseLeave}
     >
       {/* Focus ring mobile qui se déplace */}
       <div
@@ -236,7 +326,7 @@ const GlassNavBar: React.FC<GlassNavBarProps> = ({
           top: `${targetMetric.centerY}px`,
           width: `${focusWidth}px`,
           height: `${focusHeight}px`,
-          transform: `translate(-50%, -50%) scale(${isMoving ? 1.35 : 1})`,
+          transform: `translate(-50%, -50%) scale(${isFocusExpanded ? 1.35 : 1})`,
           transformOrigin: 'center',
           zIndex: 1,
           pointerEvents: 'none'
@@ -292,7 +382,10 @@ const GlassNavBar: React.FC<GlassNavBarProps> = ({
           {isDesktop && <div className="flex-1" />}
           
           {/* Éléments de navigation */}
-          <div className={`flex ${isDesktop ? 'gap-2' : 'w-full'}`}>
+          <div
+            ref={navItemsRef}
+            className={`flex ${isDesktop ? 'gap-2' : 'w-full'}`}
+          >
             {items.map((item, index) => {
             const isActive = item.id === activeItem;
             const isHovered = item.id === hoveredItem;
@@ -309,14 +402,14 @@ const GlassNavBar: React.FC<GlassNavBarProps> = ({
                   minWidth: isDesktop ? '140px' : '56px',
                   minHeight: isDesktop ? '60px' : '48px'
                 }}
-                onClick={() => onItemClick?.(item.id as NavItemId)}
-                onMouseEnter={() => setHoveredItem(item.id)}
-                onMouseLeave={() => setHoveredItem(null)}
-                onFocus={() => setHoveredItem(item.id)}
-                onBlur={() => setHoveredItem(null)}
-                onTouchStart={() => setHoveredItem(item.id)}
-                onTouchEnd={() => setHoveredItem(null)}
-                onTouchCancel={() => setHoveredItem(null)}
+                onClick={() => handleClick(item.id as NavItemId)}
+                onMouseEnter={() => handlePointerEnter(item.id as NavItemId)}
+                onMouseLeave={(event) => handlePointerLeave(event)}
+                onFocus={() => handlePointerEnter(item.id as NavItemId)}
+                onBlur={(event) => handlePointerLeave(event)}
+                onTouchStart={() => handlePointerEnter(item.id as NavItemId)}
+                onTouchEnd={collapseFocus}
+                onTouchCancel={collapseFocus}
                 aria-pressed={isActive}
               >
                 <div className={`${iconWrapperClasses} ${isActive || isHovered ? 'text-blue-400' : 'text-white'}`}>
